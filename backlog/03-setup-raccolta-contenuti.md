@@ -5,7 +5,7 @@
 
 ## Descrizione
 
-Raccogliere tutti i contenuti testuali e gli asset visivi necessari per popolare il sito. I contenuti sono da recuperare dal sito attuale francescodidio.com e/o forniti direttamente dall'autore.
+Raccogliere tutti i contenuti testuali e gli asset visivi necessari per popolare il sito. I contenuti sono da recuperare dalla cartella bak.
 
 ## Contenuti da raccogliere
 
