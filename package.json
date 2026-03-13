@@ -2,12 +2,15 @@
   "name": "francescodidio.com",
   "version": "1.0.0",
   "description": "Sito personale di Francesco Didio — minimal, responsive, ad alte prestazioni.",
-  "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "build": "./node_modules/.bin/tailwindcss -i ./assets/css/input.css -o ./assets/css/main.css --minify",
+    "dev": "./node_modules/.bin/tailwindcss -i ./assets/css/input.css -o ./assets/css/main.css --watch"
   },
   "keywords": [],
-  "author": "",
+  "author": "Francesco Didio",
   "license": "ISC",
-  "type": "commonjs"
+  "type": "commonjs",
+  "devDependencies": {
+    "tailwindcss": "^3.4.19"
+  }
 }
