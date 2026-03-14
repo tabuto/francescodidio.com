@@ -174,6 +174,28 @@ Consent Mode v2 default (in <head> di tutte le pagine):
 | Framework JS | 0 |
 | Linee di codice stimate | ~2.500 |
 
+### Stima token consumati
+
+> ⚠️ Stima approssimativa — non disponibile un contatore esatto dalla sessione Copilot CLI.
+
+| Voce | Stima |
+|---|---|
+| Turni di conversazione | ~60–70 |
+| Dimensione media contesto per turno (input) | ~25.000 token |
+| **Token di input totali** | **~1.500.000** |
+| Token di output totali (codice + spiegazioni) | **~120.000** |
+| **Token totali** | **~1.620.000** |
+
+**Metodologia:** i file prodotti pesano ~175 KB (~44.000 token di output puro). Il contesto di input cresce ad ogni turno perché include la cronologia della conversazione + i file letti (HTML, JS, MD) che in alcuni turni superavano i 40 KB ciascuno. La sessione ha subito una compattazione automatica della cronologia a metà progetto, segno che il contesto era vicino al limite della finestra.
+
+**Costo stimato** (Claude Sonnet 4.6 — prezzi indicativi):
+
+| | Token | Costo/MTok | Costo |
+|---|---|---|---|
+| Input | ~1.500.000 | $3,00 | ~$4,50 |
+| Output | ~120.000 | $15,00 | ~$1,80 |
+| **Totale** | **~1.620.000** | | **~$6,30** |
+
 ---
 
 ## Note e prossimi passi
