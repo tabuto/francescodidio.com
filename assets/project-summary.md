@@ -144,7 +144,9 @@ Consent Mode v2 default (in <head> di tutte le pagine):
 | **Sessione 1** | 13 mar 2026 — 22:20→22:41 | ~20 min | Setup progetto, Tailwind, struttura base, navbar/footer |
 | **Sessione 2** | 14 mar 2026 — 14:02→15:49 | ~1h 47min | Hero, About, Portfolio, CV, SEO, cookie banner, privacy policy |
 
-**Tempo totale: ~2 ore e 7 minuti**
+**Tempo totale: ~4 ore e 7 minuti**
+
+> Di cui ~2 ore non deducibili dai commit git: generazione delle specifiche (`SPECS.md`), definizione e revisione dei 21 task del backlog, sessioni di prompt engineering e iterazioni di affinamento dei contenuti.
 
 ### Breakdown Sessione 2
 
