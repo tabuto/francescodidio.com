@@ -1,12 +1,288 @@
 <!DOCTYPE html>
-<html lang="it">
+<html lang="it" class="">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CV — Francesco Didio</title>
+  <title>CV — Francesco di Dio</title>
+  <meta name="description" content="Curriculum vitae di Francesco di Dio, IT Consultant specializzato in JavaEE e Python.">
+  <meta name="author" content="Francesco di Dio">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://francescodidio.com/cv.html">
+  <link rel="icon" href="/favicon.ico">
   <link rel="stylesheet" href="assets/css/main.css">
+  <script src="assets/js/theme.js"></script>
+  <style>
+    @media print {
+      .no-print { display: none !important; }
+      nav, header nav, footer { display: none !important; }
+      body { background: white !important; color: black !important; font-size: 11pt; line-height: 1.5; }
+      h1, h2, h3 { color: black !important; }
+      section, article { break-inside: avoid; }
+      a { color: black !important; text-decoration: none; }
+      a[href^="http"]::after { content: " (" attr(href) ")"; font-size: 0.75em; color: #555; }
+      a[href^="mailto"]::after { content: ""; }
+      .ring-4 { ring: none !important; box-shadow: none !important; }
+      @page { margin: 1.5cm 2cm; size: A4; }
+    }
+  </style>
 </head>
-<body>
-  <h1>Sezione in lavorazione</h1>
+<body class="bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100 antialiased">
+
+  <!-- NAVBAR -->
+  <nav aria-label="Navigazione" class="no-print sticky top-0 z-50 bg-white/90 dark:bg-gray-950/90 backdrop-blur border-b border-gray-200 dark:border-gray-800">
+    <div class="max-w-3xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+      <a href="index.html" class="text-sm font-medium text-gray-500 dark:text-gray-400 hover:text-brand-600 dark:hover:text-brand-400 transition-colors flex items-center gap-2">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/>
+        </svg>
+        Home
+      </a>
+      <div class="flex items-center gap-3">
+        <!-- Stampa -->
+        <button onclick="window.print()"
+          aria-label="Stampa o salva come PDF"
+          class="no-print flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 text-sm font-medium hover:border-brand-500 hover:text-brand-600 dark:hover:border-brand-400 dark:hover:text-brand-400 transition-colors">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0 1 10.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0 .229 2.523a1.125 1.125 0 0 1-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0 0 21 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 0 0-1.913-.247M6.34 18H5.25A2.25 2.25 0 0 1 3 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 0 1 1.913-.247m10.5 0a48.536 48.536 0 0 0-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5Zm-3 0h.008v.008H15V10.5Z"/>
+          </svg>
+          Stampa / PDF
+        </button>
+        <!-- Toggle tema -->
+        <button id="theme-toggle" onclick="toggleTheme()" aria-label="Passa al tema scuro"
+          class="no-print p-2 rounded-full text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+          <svg class="dark:hidden w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z"/>
+          </svg>
+          <svg class="hidden dark:block w-5 h-5" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- CONTENUTO CV -->
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+
+    <!-- HEADER: nome, contatti, social -->
+    <header class="mb-10">
+      <h1 class="text-4xl font-bold tracking-tight mb-1">Francesco di Dio</h1>
+      <p class="text-xl text-brand-600 dark:text-brand-400 font-medium mb-4">IT Consultant — JavaEE &amp; Python</p>
+      <div class="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400">
+        <a href="mailto:f.didio.1983@gmail.com" class="flex items-center gap-1 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
+          f.didio.1983@gmail.com
+        </a>
+        <a href="https://it.linkedin.com/in/didiofrancesco" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          LinkedIn
+        </a>
+        <a href="https://github.com/tabuto" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+          GitHub
+        </a>
+        <a href="https://twitter.com/tabuto83" target="_blank" rel="noopener noreferrer" class="flex items-center gap-1 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
+          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          Twitter
+        </a>
+      </div>
+    </header>
+
+    <main>
+
+      <!-- SOMMARIO -->
+      <section id="summary" class="mb-10">
+        <h2 class="text-xs font-bold tracking-widest text-brand-600 dark:text-brand-400 uppercase mb-3">Profilo</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+          IT Consultant con oltre 10 anni di esperienza su progetti enterprise JavaEE e BigData.
+          Team Leader su architetture distribuite (Spark, Hadoop, HBase) e sviluppatore su sistemi
+          di Document Management per clienti nazionali e internazionali.
+          Laureato in Ingegneria Informatica, appassionato di sviluppo mobile e open source.
+        </p>
+      </section>
+
+      <hr class="border-gray-200 dark:border-gray-800 my-8">
+
+      <!-- ESPERIENZE -->
+      <section id="experience" class="mb-10">
+        <h2 class="text-xs font-bold tracking-widest text-brand-600 dark:text-brand-400 uppercase mb-6">Esperienze</h2>
+
+        <ol class="space-y-8">
+
+          <li>
+            <article>
+              <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-2">
+                <h3 class="font-bold text-lg">JavaEE Consultant — Team Leader</h3>
+                <time class="text-sm text-gray-500 dark:text-gray-400 shrink-0" datetime="2016-05">05/2016 – presente</time>
+              </div>
+              <p class="text-brand-700 dark:text-brand-400 font-medium text-sm mb-2">Engineering S.p.A.</p>
+              <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-2">
+                Team Leader sul modulo "Control Process Module" del progetto Exabeat: piattaforma BigData internazionale (Italia–Spagna) per la gestione di misure elettriche per ENDESA.
+              </p>
+              <p class="text-xs text-gray-500 dark:text-gray-400">
+                <strong>Stack:</strong> Java 7, Scala, Spark 1.6, HBase 0.97, Phoenix, PostgreSQL, Hadoop, WildFly 9, Maven, SVN
+              </p>
+            </article>
+          </li>
+
+          <li>
+            <article>
+              <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-2">
+                <h3 class="font-bold text-lg">JavaEE Consultant — Sviluppatore Senior</h3>
+                <time class="text-sm text-gray-500 dark:text-gray-400 shrink-0" datetime="2013-09">09/2013 – 05/2016</time>
+              </div>
+              <p class="text-brand-700 dark:text-brand-400 font-medium text-sm mb-2">Engineering S.p.A.</p>
+              <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-2">
+                Analisi, progettazione e sviluppo sul progetto Prince, Document Management System che implementa la normativa sul Protocollo Informatico per INAIL.
+              </p>
+              <p class="text-xs text-gray-500 dark:text-gray-400">
+                <strong>Stack:</strong> Java 6 J2EE, EJB 3.0, Spring, Oracle DB 11g, WebLogic 10.3.6, Quartz, Maven, SVN, NEXUS, RTC
+              </p>
+            </article>
+          </li>
+
+          <li>
+            <article>
+              <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-2">
+                <h3 class="font-bold text-lg">JavaEE Consultant</h3>
+                <time class="text-sm text-gray-500 dark:text-gray-400 shrink-0" datetime="2011-04">04/2011 – 09/2013</time>
+              </div>
+              <p class="text-brand-700 dark:text-brand-400 font-medium text-sm mb-2">DSTech</p>
+              <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-2">
+                Sviluppo di un DMS per il Protocollo Informatico per INAIL. Bug fixing, sviluppo di nuove funzionalità, integrazione con web service di firma digitale e data remediation.
+              </p>
+              <p class="text-xs text-gray-500 dark:text-gray-400">
+                <strong>Stack:</strong> Java 6 J2EE, EJB 3.0, JSF, Oracle DB 11g, JBoss EAP 5.1, JasperReport, JavaMail, SVN
+              </p>
+            </article>
+          </li>
+
+          <li>
+            <article>
+              <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-2">
+                <h3 class="font-bold text-lg">JavaEE Internship</h3>
+                <time class="text-sm text-gray-500 dark:text-gray-400 shrink-0" datetime="2011-03">03/2011 – 04/2011</time>
+              </div>
+              <p class="text-brand-700 dark:text-brand-400 font-medium text-sm mb-2">DSTech</p>
+              <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                Stage full-time su tecnologie JavaEE: Servlet, JSP, JavaScript, Struts2, Hibernate, Oracle PL-SQL.
+              </p>
+            </article>
+          </li>
+
+        </ol>
+      </section>
+
+      <hr class="border-gray-200 dark:border-gray-800 my-8">
+
+      <!-- FORMAZIONE -->
+      <section id="education" class="mb-10">
+        <h2 class="text-xs font-bold tracking-widest text-brand-600 dark:text-brand-400 uppercase mb-6">Formazione</h2>
+
+        <ol class="space-y-6">
+          <li>
+            <article>
+              <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1">
+                <h3 class="font-bold">Laurea in Ingegneria Informatica</h3>
+                <time class="text-sm text-gray-500 dark:text-gray-400" datetime="2010-03">03/2010</time>
+              </div>
+              <p class="text-brand-700 dark:text-brand-400 text-sm font-medium mb-1">Università degli Studi di Palermo</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Voto: 100/110 · Tesi: File System in Linux System</p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1">
+                <h3 class="font-bold">Training Oracle WebCenter Content 11g (32h)</h3>
+                <time class="text-sm text-gray-500 dark:text-gray-400" datetime="2013-07">07/2013</time>
+              </div>
+              <p class="text-brand-700 dark:text-brand-400 text-sm font-medium mb-1">Oracle University · Engineering, Roma</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Installazione e amministrazione di Oracle WebCenter Content 11g.</p>
+            </article>
+          </li>
+          <li>
+            <article>
+              <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1">
+                <h3 class="font-bold">Diploma Scientifico</h3>
+                <time class="text-sm text-gray-500 dark:text-gray-400" datetime="2002-07">07/2002</time>
+              </div>
+              <p class="text-brand-700 dark:text-brand-400 text-sm font-medium mb-1">Liceo Scientifico "Elio Vittorini", Gela (CL)</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400">Voto: 90/100</p>
+            </article>
+          </li>
+        </ol>
+      </section>
+
+      <hr class="border-gray-200 dark:border-gray-800 my-8">
+
+      <!-- COMPETENZE -->
+      <section id="skills" class="mb-10">
+        <h2 class="text-xs font-bold tracking-widest text-brand-600 dark:text-brand-400 uppercase mb-6">Competenze</h2>
+        <div class="space-y-4">
+          <div>
+            <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Linguaggi &amp; Framework</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-2.5 py-1 rounded-md text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">Java / JavaEE</span>
+              <span class="px-2.5 py-1 rounded-md text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">Scala</span>
+              <span class="px-2.5 py-1 rounded-md text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">Python</span>
+              <span class="px-2.5 py-1 rounded-md text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">Spring / EJB</span>
+              <span class="px-2.5 py-1 rounded-md text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">Django / Flask</span>
+              <span class="px-2.5 py-1 rounded-md text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">Spark / Hadoop</span>
+              <span class="px-2.5 py-1 rounded-md text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">Android SDK</span>
+              <span class="px-2.5 py-1 rounded-md text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">JavaScript / jQuery</span>
+              <span class="px-2.5 py-1 rounded-md text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">HTML5 / CSS3</span>
+              <span class="px-2.5 py-1 rounded-md text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">PL-SQL</span>
+              <span class="px-2.5 py-1 rounded-md text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">Struts2 / Hibernate</span>
+              <span class="px-2.5 py-1 rounded-md text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">JSF</span>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Ambienti &amp; Strumenti</h3>
+            <div class="flex flex-wrap gap-2">
+              <span class="px-2.5 py-1 rounded-md text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">Git / SVN / Maven</span>
+              <span class="px-2.5 py-1 rounded-md text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">JBoss / WildFly</span>
+              <span class="px-2.5 py-1 rounded-md text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">WebLogic / Tomcat</span>
+              <span class="px-2.5 py-1 rounded-md text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">Oracle DB / PostgreSQL</span>
+              <span class="px-2.5 py-1 rounded-md text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">HBase / Phoenix</span>
+              <span class="px-2.5 py-1 rounded-md text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">Linux Debian</span>
+              <span class="px-2.5 py-1 rounded-md text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">Eclipse / IntelliJ</span>
+              <span class="px-2.5 py-1 rounded-md text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">JasperReport</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <hr class="border-gray-200 dark:border-gray-800 my-8">
+
+      <!-- LINGUE -->
+      <section id="languages" class="mb-10">
+        <h2 class="text-xs font-bold tracking-widest text-brand-600 dark:text-brand-400 uppercase mb-4">Lingue</h2>
+        <dl class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <div class="flex flex-col">
+            <dt class="font-semibold text-sm">Italiano</dt>
+            <dd class="text-sm text-gray-500 dark:text-gray-400">Madrelingua</dd>
+          </div>
+          <div class="flex flex-col">
+            <dt class="font-semibold text-sm">Inglese</dt>
+            <dd class="text-sm text-gray-500 dark:text-gray-400">Professionale</dd>
+          </div>
+        </dl>
+      </section>
+
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="border-t border-gray-200 dark:border-gray-800 pt-6 mt-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 text-sm text-gray-500 dark:text-gray-400">
+      <a href="index.html" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors flex items-center gap-1">
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18"/>
+        </svg>
+        francescodidio.com
+      </a>
+      <p>Ultimo aggiornamento: <time datetime="2026-03">marzo 2026</time></p>
+    </footer>
+
+  </div>
+
 </body>
 </html>
