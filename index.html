@@ -252,22 +252,221 @@
     ═══════════════════════════════════════════ -->
     <section id="portfolio" class="py-20 px-4 max-w-5xl mx-auto">
       <h2 class="text-3xl font-bold mb-2">Portfolio</h2>
+      <p class="text-gray-500 dark:text-gray-400 mb-12">Alcuni progetti personali a cui ho lavorato nel tempo libero.</p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- JSimLife -->
+        <article class="flex flex-col rounded-2xl border border-gray-200 dark:border-gray-800 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200">
+          <div class="aspect-video bg-gradient-to-br from-brand-900 to-brand-700 flex items-center justify-center">
+            <picture>
+              <source srcset="assets/img/project-jsimlife.webp" type="image/webp">
+              <img src="assets/img/project-jsimlife.jpg" alt="Screenshot di JSimLife — simulatore A-Life in Java"
+                   loading="lazy" width="400" height="225"
+                   class="w-full h-full object-cover"
+                   onerror="this.style.display='none'">
+            </picture>
+            <span class="absolute text-white/30 text-6xl font-bold select-none">J</span>
+          </div>
+          <div class="flex flex-col flex-1 p-5">
+            <h3 class="text-lg font-bold mb-2">JSimLife</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4 flex-1">
+              Simulatore A-Life in Java 6. Ambiente dinamico con forme di vita dotate di codice genetico e reti neurali. Licenza MIT.
+            </p>
+            <ul class="flex flex-wrap gap-1.5 mb-4" aria-label="Tecnologie usate">
+              <li class="px-2 py-0.5 rounded-full text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">Java 6</li>
+              <li class="px-2 py-0.5 rounded-full text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">A-Life</li>
+              <li class="px-2 py-0.5 rounded-full text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">Neural Network</li>
+              <li class="px-2 py-0.5 rounded-full text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">Open Source</li>
+            </ul>
+            <a href="http://tabuto.github.io/jsimlife/" target="_blank" rel="noopener noreferrer"
+               class="text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline">
+              Vedi progetto →
+            </a>
+          </div>
+        </article>
+
+        <!-- NewzUP -->
+        <article class="flex flex-col rounded-2xl border border-gray-200 dark:border-gray-800 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200">
+          <div class="aspect-video bg-gradient-to-br from-green-900 to-green-700 flex items-center justify-center">
+            <picture>
+              <source srcset="assets/img/project-newzup.webp" type="image/webp">
+              <img src="assets/img/project-newzup.jpg" alt="Screenshot di NewzUP — app Android per raccogliere link"
+                   loading="lazy" width="400" height="225"
+                   class="w-full h-full object-cover"
+                   onerror="this.style.display='none'">
+            </picture>
+            <span class="absolute text-white/30 text-6xl font-bold select-none">N</span>
+          </div>
+          <div class="flex flex-col flex-1 p-5">
+            <h3 class="text-lg font-bold mb-2">NewzUP</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4 flex-1">
+              App Android per raccogliere link da siti web tramite parole chiave. Usa Fragment, Material Design e ricerca schedulata.
+            </p>
+            <ul class="flex flex-wrap gap-1.5 mb-4" aria-label="Tecnologie usate">
+              <li class="px-2 py-0.5 rounded-full text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">Android</li>
+              <li class="px-2 py-0.5 rounded-full text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">Material Design</li>
+              <li class="px-2 py-0.5 rounded-full text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">Java</li>
+            </ul>
+            <a href="https://github.com/tabuto" target="_blank" rel="noopener noreferrer"
+               class="text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline">
+              Vedi progetto →
+            </a>
+          </div>
+        </article>
+
+        <!-- PyCliNote -->
+        <article class="flex flex-col rounded-2xl border border-gray-200 dark:border-gray-800 overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-200">
+          <div class="aspect-video bg-gradient-to-br from-yellow-800 to-yellow-600 flex items-center justify-center">
+            <picture>
+              <source srcset="assets/img/project-pyclinote.webp" type="image/webp">
+              <img src="assets/img/project-pyclinote.jpg" alt="Screenshot di PyCliNote — web app note in Django"
+                   loading="lazy" width="400" height="225"
+                   class="w-full h-full object-cover"
+                   onerror="this.style.display='none'">
+            </picture>
+            <span class="absolute text-white/30 text-6xl font-bold select-none">P</span>
+          </div>
+          <div class="flex flex-col flex-1 p-5">
+            <h3 class="text-lg font-bold mb-2">PyCliNote</h3>
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4 flex-1">
+              Web app per note sviluppata con Python e Django. Autenticazione, Ajax con jQuery, HTML5+CSS3, SQLite come database.
+            </p>
+            <ul class="flex flex-wrap gap-1.5 mb-4" aria-label="Tecnologie usate">
+              <li class="px-2 py-0.5 rounded-full text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">Python</li>
+              <li class="px-2 py-0.5 rounded-full text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">Django</li>
+              <li class="px-2 py-0.5 rounded-full text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">jQuery</li>
+              <li class="px-2 py-0.5 rounded-full text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">SQLite</li>
+            </ul>
+            <a href="https://github.com/tabuto/pyclinote" target="_blank" rel="noopener noreferrer"
+               class="text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline">
+              Vedi progetto →
+            </a>
+          </div>
+        </article>
+
+      </div>
     </section>
 
     <!-- ═══════════════════════════════════════════
          CV PREVIEW
     ═══════════════════════════════════════════ -->
-    <section id="cv" class="py-20 px-4 bg-gray-50 dark:bg-gray-900/50">
+    <section id="cv" class="py-20 px-4 bg-gray-50 dark:bg-gray-900/50 border-y border-gray-200 dark:border-gray-800">
       <div class="max-w-5xl mx-auto">
         <h2 class="text-3xl font-bold mb-2">Curriculum</h2>
+        <p class="text-gray-500 dark:text-gray-400 mb-12">Un riepilogo della mia carriera professionale.</p>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+
+          <!-- Timeline esperienze -->
+          <div>
+            <h3 class="text-sm font-semibold tracking-widest text-gray-400 uppercase mb-6">Esperienze</h3>
+            <ol class="relative border-l-2 border-brand-200 dark:border-brand-800 space-y-8">
+
+              <li class="pl-6">
+                <span class="absolute -left-[9px] mt-1.5 w-4 h-4 rounded-full bg-brand-500 border-2 border-white dark:border-gray-950"></span>
+                <time class="text-xs font-medium text-brand-600 dark:text-brand-400">05/2016 – presente</time>
+                <h4 class="font-semibold mt-0.5">JavaEE Consultant — Team Leader</h4>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Engineering S.p.A.</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Progetto Exabeat: BigData internazionale Italia-Spagna per ENDESA. Stack: Java, Scala, Spark, HBase, Hadoop.</p>
+              </li>
+
+              <li class="pl-6">
+                <span class="absolute -left-[9px] mt-1.5 w-4 h-4 rounded-full bg-brand-400 border-2 border-white dark:border-gray-950"></span>
+                <time class="text-xs font-medium text-brand-600 dark:text-brand-400">09/2013 – 05/2016</time>
+                <h4 class="font-semibold mt-0.5">JavaEE Consultant — Senior Dev</h4>
+                <p class="text-sm text-gray-500 dark:text-gray-400">Engineering S.p.A.</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Progetto Prince: Document Management System per INAIL. Stack: Java EE, Spring, Oracle DB, WebLogic.</p>
+              </li>
+
+              <li class="pl-6">
+                <span class="absolute -left-[9px] mt-1.5 w-4 h-4 rounded-full bg-brand-300 border-2 border-white dark:border-gray-950"></span>
+                <time class="text-xs font-medium text-brand-600 dark:text-brand-400">04/2011 – 09/2013</time>
+                <h4 class="font-semibold mt-0.5">JavaEE Consultant</h4>
+                <p class="text-sm text-gray-500 dark:text-gray-400">DSTech</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">DMS per INAIL: sviluppo, bug fixing, integrazione firma digitale e data remediation.</p>
+              </li>
+
+            </ol>
+          </div>
+
+          <!-- Skill + formazione + CTA -->
+          <div class="flex flex-col gap-8">
+            <div>
+              <h3 class="text-sm font-semibold tracking-widest text-gray-400 uppercase mb-6">Competenze</h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 rounded-full text-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">Java / JavaEE</span>
+                <span class="px-3 py-1 rounded-full text-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">Python / Django</span>
+                <span class="px-3 py-1 rounded-full text-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">Scala / Spark</span>
+                <span class="px-3 py-1 rounded-full text-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">Hadoop / HBase</span>
+                <span class="px-3 py-1 rounded-full text-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">Spring / EJB</span>
+                <span class="px-3 py-1 rounded-full text-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">Android SDK</span>
+                <span class="px-3 py-1 rounded-full text-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">Git / Maven</span>
+                <span class="px-3 py-1 rounded-full text-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">Oracle DB / PostgreSQL</span>
+              </div>
+            </div>
+
+            <div>
+              <h3 class="text-sm font-semibold tracking-widest text-gray-400 uppercase mb-4">Formazione</h3>
+              <p class="font-semibold text-sm">Laurea in Ingegneria Informatica</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400">Università degli Studi di Palermo · 100/110 · 2010</p>
+            </div>
+
+            <a href="cv.html"
+               class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-brand-600 text-white font-medium hover:bg-brand-700 transition-colors self-start">
+              Vedi il curriculum completo
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/>
+              </svg>
+            </a>
+          </div>
+
+        </div>
       </div>
     </section>
 
     <!-- ═══════════════════════════════════════════
          CONTACT
     ═══════════════════════════════════════════ -->
-    <section id="contact" class="py-24 px-4 text-center max-w-5xl mx-auto">
-      <h2 class="text-3xl font-bold mb-2">Contatti</h2>
+    <section id="contact" class="py-24 px-4 bg-brand-950 dark:bg-gray-950 text-white">
+      <div class="max-w-2xl mx-auto text-center">
+        <h2 class="text-3xl font-bold mb-4">Contattami</h2>
+        <p class="text-brand-200 dark:text-gray-400 text-lg mb-10">
+          Sono disponibile per collaborazioni, opportunità professionali o semplicemente per una chiacchierata tecnica.
+        </p>
+
+        <!-- CTA email principale -->
+        <a href="mailto:f.didio.1983@gmail.com"
+           class="inline-flex items-center gap-3 px-8 py-4 rounded-xl bg-white text-brand-900 font-semibold text-lg hover:bg-brand-50 transition-colors shadow-lg mb-10">
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+          </svg>
+          f.didio.1983@gmail.com
+        </a>
+
+        <!-- Link social compatti -->
+        <div class="flex justify-center gap-4">
+          <a href="https://it.linkedin.com/in/didiofrancesco" target="_blank" rel="noopener noreferrer"
+             aria-label="LinkedIn" class="p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+            </svg>
+          </a>
+          <a href="https://github.com/tabuto" target="_blank" rel="noopener noreferrer"
+             aria-label="GitHub" class="p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+            </svg>
+          </a>
+          <a href="https://twitter.com/tabuto83" target="_blank" rel="noopener noreferrer"
+             aria-label="Twitter / X" class="p-3 rounded-full bg-white/10 hover:bg-white/20 transition-colors">
+            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.748l7.73-8.835L1.254 2.25H8.08l4.253 5.622zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+            </svg>
+          </a>
+        </div>
+
+      </div>
     </section>
 
   </main>
