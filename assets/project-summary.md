@@ -108,6 +108,7 @@ Questo approccio mantiene il contenuto separato dalla presentazione e rende ogni
 |---|---|---|
 | 21 | **Cookie Banner GDPR + Google Consent Mode v2** | Banner vanilla JS conforme GDPR/Garante IT, pannello personalizzazione, GA iniettato solo su consenso |
 | — | **Pagina Privacy Policy** | `privacy-policy.html` con struttura semantica, summary evidenziato, dark mode, collegata da tutti i footer |
+| 22 | **Sezione Articoli** *(backlog)* | `articles.html` con griglia card + `post/` per pagine singolo articolo; JSON-LD `Article`, breadcrumb, prose Tailwind |
 
 ---
 
