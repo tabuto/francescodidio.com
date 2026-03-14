@@ -162,6 +162,16 @@ Ruolo chiave nella definizione delle scelte architetturali e nella comunicazione
 
 ## Portfolio Progetti
 
+
+
+### Nerdsland
+**Periodo:** 08/2025 - attualmente
+**Tipo:** Pagina  di divulgazione scientifica
+**Descrizione:** Nerdsland è il mio laboratorio creativo dove la cultura geek incontra la comunicazione strategica. In qualità di Direttore Creativo e Archivista Capo, trasformo trend complessi, innovazioni tecnologiche e pilastri della pop culture in contenuti narrativi capaci di catturare l'attenzione e generare community. Il mio obiettivo? Rendere l'accessibile straordinario, dimostrando che dietro ogni notizia c’è sempre una grande storia da raccontare.
+**URL:** https://www.facebook.com/profile.php?id=61580335090608&sk=directory_links
+
+---
+
 ### JSimLife
 **Periodo:** 08/2010 – 12/2011
 **Tipo:** Progetto personale — Java
