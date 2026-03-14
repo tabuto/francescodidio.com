@@ -48,7 +48,15 @@ Il flusso di lavoro è stato:
 - Requisiti SEO, performance e accessibilità
 - Requisiti legali (GDPR, Garante Privacy Italiano)
 
-**`content.md`** ha funzionato come **fonte unica di verità** per tutti i testi: bio, esperienze, portfolio, skill. Ogni modifica al contenuto parte da lì e viene propagata all'HTML su richiesta.
+**`content.md`** ha funzionato come **fonte unica di verità** per tutti i testi: bio, esperienze, portfolio, skill. È stato generato a partire dalle informazioni presenti nel vecchio sito e dal CV esistente, consolidando tutto in un unico file strutturato.
+
+Il workflow di aggiornamento è semplice e non richiede di toccare l'HTML direttamente:
+
+- Per **aggiungere un progetto al portfolio** → modifica la sezione Portfolio in `content.md` e chiedi all'AI di aggiornare le relative card in `index.html`
+- Per **aggiornare il CV** (nuova esperienza, nuova skill, ecc.) → modifica la sezione Esperienze o Competenze in `content.md` e chiedi di propagare le modifiche in `cv.html` e nella CV Preview di `index.html`
+- Per **aggiornare la bio o l'hero** → modifica la sezione About/Hero in `content.md` e chiedi l'aggiornamento della sezione corrispondente
+
+Questo approccio mantiene il contenuto separato dalla presentazione e rende ogni aggiornamento rapido, preciso e privo di rischio di regressioni nel layout.
 
 ---
 
