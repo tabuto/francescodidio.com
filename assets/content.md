@@ -46,9 +46,16 @@ Appassionato di sviluppo Gen-AI, open source e linguaggi emergenti.
 ---
 
 ## Esperienze Lavorative
+### Technical Manager — Engineering S.p.A.
+**Periodo:** 01/2026 - attualmente
+**Ruolo:** Technical Manager  
+**Descrizione:** Come Technical Manager ho la responsabilità del monitoraggio e avanzamento economico di alcuni progetti, l'allocazione, la crescita e la valutazione delle risorse, la guida tecnica di alcuni progetti promuovendo i driver e i behavior aziendali.
+
+**Skill:** Project Managment, Team Leading, Gen-Ai
+
 ### Team Leader - Project Manager — Engineering S.p.A.
 **Periodo:** 09/2025 - 01/2026
-**Ruolo:** Team Leader – Progetto EBAAS Poste
+**Ruolo:** Team Leader – Batch Anonimizzazione 
 **Descrizione:** Ho diretto e realizzato una soluzione enterprise per l'anonimizzazione di 5 milioni di record in conformità alla normativa GDPR per un primario player nazionale. Il progetto è stato il banco di prova per l'adozione di un workflow 100% Spec-Driven GenAI.
 ​Metodologia: Applicazione del paradigma Spec-Driven trasformando requisiti funzionali complessi in codice di produzione tramite strumenti di IA Generativa.
 ​Stack Tecnologico: Sviluppo accelerato tramite GitHub Copilot CLI e gestione del ciclo di vita del software basata su backlog.md, garantendo una tracciabilità totale tra specifica e implementazione.
