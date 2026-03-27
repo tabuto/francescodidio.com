@@ -3,6 +3,5 @@ dist/
 .DS_Store
 *.log
 npm-debug.log*
-assets/css/main.css
 backlog/
 bak/
