@@ -163,6 +163,15 @@ Ruolo chiave nella definizione delle scelte architetturali e nella comunicazione
 ## Portfolio Progetti
 
 
+### Antonio Occhipinti
+**Periodo:** 2026
+**Tipo:** Sito portfolio — Static Site
+**Descrizione:** Sito portfolio per Antonio Occhipinti, maestro dell'acquerello. Progettato e sviluppato interamente con approccio GenAI Spec-Driven: dalla definizione dei requisiti alla produzione del codice, ogni fase e' stata guidata da specifiche strutturate. Stack completamente statico — nessun framework, nessun build step — con contenuti in Markdown caricati a runtime, toggle IT/EN, lightbox per le gallerie e cache-busting su tutti gli asset dinamici.
+**Stack:** HTML5 · Tailwind CSS · Alpine.js · Markdown · Cloudinary · GenAI Spec-Driven · i18n (IT/EN) · Static Site
+**URL:** https://occhipintiantonio.com
+
+---
+
 
 ### Nerdsland
 **Periodo:** 08/2025 - attualmente
