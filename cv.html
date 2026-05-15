@@ -8,6 +8,9 @@
   <meta name="author" content="Francesco di Dio">
   <meta name="robots" content="index, follow">
   <link rel="canonical" href="https://francescodidio.com/cv.html">
+  <link rel="alternate" hreflang="it" href="https://francescodidio.com/cv.html" />
+  <link rel="alternate" hreflang="en" href="https://francescodidio.com/cv.html" />
+  <link rel="alternate" hreflang="x-default" href="https://francescodidio.com/cv.html" />
   <link rel="sitemap" type="application/xml" href="/sitemap.xml">
   <!-- Open Graph -->
   <meta property="og:title" content="CV — Francesco di Dio · Technical Manager">
@@ -45,6 +48,7 @@
     });
   </script>
   <script src="assets/js/theme.js"></script>
+  <script src="assets/js/i18n.js"></script>
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
   {
@@ -81,7 +85,7 @@
     }
   </style>
 </head>
-<body class="bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100 antialiased">
+<body class="bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100 antialiased" data-i18n-page="cv">
 
   <!-- NAVBAR -->
   <nav aria-label="Navigazione" class="no-print sticky top-0 z-50 bg-white/90 dark:bg-gray-950/90 backdrop-blur border-b border-gray-200 dark:border-gray-800">
@@ -96,11 +100,12 @@
         <!-- Stampa -->
         <button onclick="window.print()"
           aria-label="Stampa o salva come PDF"
+          data-i18n-label="cv.page.nav.print.label"
           class="no-print flex items-center gap-2 px-4 py-2 rounded-lg border border-gray-300 dark:border-gray-700 text-sm font-medium hover:border-brand-500 hover:text-brand-600 dark:hover:border-brand-400 dark:hover:text-brand-400 transition-colors">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6.72 13.829c-.24.03-.48.062-.72.096m.72-.096a42.415 42.415 0 0 1 10.56 0m-10.56 0L6.34 18m10.94-4.171c.24.03.48.062.72.096m-.72-.096L17.66 18m0 0 .229 2.523a1.125 1.125 0 0 1-1.12 1.227H7.231c-.662 0-1.18-.568-1.12-1.227L6.34 18m11.318 0h1.091A2.25 2.25 0 0 0 21 15.75V9.456c0-1.081-.768-2.015-1.837-2.175a48.055 48.055 0 0 0-1.913-.247M6.34 18H5.25A2.25 2.25 0 0 1 3 15.75V9.456c0-1.081.768-2.015 1.837-2.175a48.041 48.041 0 0 1 1.913-.247m10.5 0a48.536 48.536 0 0 0-10.5 0m10.5 0V3.375c0-.621-.504-1.125-1.125-1.125h-8.25c-.621 0-1.125.504-1.125 1.125v3.659M18 10.5h.008v.008H18V10.5Zm-3 0h.008v.008H15V10.5Z"/>
           </svg>
-          Stampa / PDF
+          <span data-i18n="cv.page.nav.print">Stampa / PDF</span>
         </button>
         <!-- Toggle tema -->
         <button id="theme-toggle" onclick="toggleTheme()" aria-label="Passa al tema scuro"
@@ -112,6 +117,8 @@
             <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z"/>
           </svg>
         </button>
+        <!-- Language toggle -->
+        <button id="lang-toggle" onclick="toggleLang()" data-i18n-label="lang.toggle.label" aria-label="Switch to English" class="no-print px-2 py-1 rounded text-xs font-semibold border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition"><span data-lang-label>EN</span></button>
       </div>
     </div>
   </nav>
@@ -122,7 +129,7 @@
     <!-- HEADER: nome, contatti, social -->
     <header class="mb-10">
       <h1 class="text-4xl font-bold tracking-tight mb-1">Francesco di Dio</h1>
-      <p class="text-xl text-brand-600 dark:text-brand-400 font-medium mb-4">IT Consultant — JavaEE &amp; Python</p>
+      <p class="text-xl text-brand-600 dark:text-brand-400 font-medium mb-4" data-i18n="cv.page.subtitle">IT Consultant — JavaEE &amp; Python</p>
       <div class="flex flex-wrap gap-4 text-sm text-gray-600 dark:text-gray-400">
         <a href="mailto:f.didio.1983@gmail.com" class="flex items-center gap-1 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75"/></svg>
@@ -147,8 +154,8 @@
 
       <!-- SOMMARIO -->
       <section id="summary" class="mb-10">
-        <h2 class="text-xs font-bold tracking-widest text-brand-600 dark:text-brand-400 uppercase mb-3">Profilo</h2>
-        <p class="text-gray-700 dark:text-gray-300 leading-relaxed">
+        <h2 class="text-xs font-bold tracking-widest text-brand-600 dark:text-brand-400 uppercase mb-3" data-i18n="cv.page.summary.h2">Profilo</h2>
+        <p class="text-gray-700 dark:text-gray-300 leading-relaxed" data-i18n-html="cv.page.summary.p">
           Manager tecnico con oltre 2 anni di esperienza nella guida di progetti critici per la GDO,
           focalizzato sull'integrazione tra ingegneria del software tradizionale e innovazione GenAI.
           Leadership nell'adozione di metodologie <strong>Spec-Driven</strong> per la produzione di
@@ -163,7 +170,7 @@
 
       <!-- ESPERIENZE -->
       <section id="experience" class="mb-10">
-        <h2 class="text-xs font-bold tracking-widest text-brand-600 dark:text-brand-400 uppercase mb-6">Esperienze</h2>
+        <h2 class="text-xs font-bold tracking-widest text-brand-600 dark:text-brand-400 uppercase mb-6" data-i18n="cv.page.exp.h2">Esperienze</h2>
 
         <ol class="space-y-8">
 
@@ -171,14 +178,14 @@
             <article>
               <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-2">
                 <h3 class="font-bold text-lg">Technical Manager</h3>
-                <time class="text-sm text-gray-500 dark:text-gray-400 shrink-0" datetime="2026-01">01/2026 – attualmente</time>
+                <time class="text-sm text-gray-500 dark:text-gray-400 shrink-0" datetime="2026-01" data-i18n="cv.page.exp.1.date">01/2026 – attualmente</time>
               </div>
               <p class="text-brand-700 dark:text-brand-400 font-medium text-sm mb-2">Engineering S.p.A.</p>
-              <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-2">
+              <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-2" data-i18n-html="cv.page.exp.1.desc">
                 Responsabilità del monitoraggio e avanzamento economico di progetti, allocazione, crescita e valutazione delle risorse.
                 Guida tecnica di progetti promuovendo i driver e i behavior aziendali.
               </p>
-              <p class="text-xs text-gray-500 dark:text-gray-400">
+              <p class="text-xs text-gray-500 dark:text-gray-400" data-i18n-html="cv.page.exp.1.skills">
                 <strong>Skill:</strong> Project Management, Team Leading, GenAI
               </p>
             </article>
@@ -188,16 +195,16 @@
             <article>
               <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-2">
                 <h3 class="font-bold text-lg">Team Leader — Project Manager</h3>
-                <time class="text-sm text-gray-500 dark:text-gray-400 shrink-0" datetime="2025-09">09/2025 – 01/2026</time>
+                <time class="text-sm text-gray-500 dark:text-gray-400 shrink-0" datetime="2025-09" data-i18n="cv.page.exp.2.date">09/2025 – 01/2026</time>
               </div>
-              <p class="text-brand-700 dark:text-brand-400 font-medium text-sm mb-2">Engineering S.p.A. — Batch Anonimizzazione</p>
-              <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-2">
+              <p class="text-brand-700 dark:text-brand-400 font-medium text-sm mb-2" data-i18n="cv.page.exp.2.project">Engineering S.p.A. — Batch Anonimizzazione</p>
+              <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-2" data-i18n-html="cv.page.exp.2.desc">
                 Soluzione enterprise per l'anonimizzazione GDPR di 5 milioni di record per un primario player nazionale.
                 Banco di prova per l'adozione di un workflow 100% Spec-Driven GenAI: trasformazione di requisiti funzionali complessi
                 in codice di produzione tramite GitHub Copilot CLI. Elaborazione di 2 batch massivi (5M+ dati) con elevati standard
                 di sicurezza e performance.
               </p>
-              <p class="text-xs text-gray-500 dark:text-gray-400">
+              <p class="text-xs text-gray-500 dark:text-gray-400" data-i18n-html="cv.page.exp.2.stack">
                 <strong>Stack:</strong> Java 8, Spring Batch, DB2, spec-driven development, GitHub Copilot CLI
               </p>
             </article>
@@ -207,16 +214,16 @@
             <article>
               <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-2">
                 <h3 class="font-bold text-lg">Team Leader — Project Manager</h3>
-                <time class="text-sm text-gray-500 dark:text-gray-400 shrink-0" datetime="2019-09">09/2019 – 09/2025</time>
+                <time class="text-sm text-gray-500 dark:text-gray-400 shrink-0" datetime="2019-09" data-i18n="cv.page.exp.3.date">09/2019 – 09/2025</time>
               </div>
-              <p class="text-brand-700 dark:text-brand-400 font-medium text-sm mb-2">Engineering S.p.A. — Settore GDO</p>
-              <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-2">
+              <p class="text-brand-700 dark:text-brand-400 font-medium text-sm mb-2" data-i18n="cv.page.exp.3.project">Engineering S.p.A. — Settore GDO</p>
+              <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-2" data-i18n-html="cv.page.exp.3.desc">
                 Project Manager e referente tecnico per progetti strategici di un grande player nel settore della GDO.
                 Gestione end-to-end di un sistema SSO con oltre 5 milioni di account: MFA, OAuth2/OpenID Connect,
                 architettura microservizi in Quarkus e interfacce Angular.js. Coordinamento di team cross-funzionali
                 e comunicazione tecnica verso gli stakeholder.
               </p>
-              <p class="text-xs text-gray-500 dark:text-gray-400">
+              <p class="text-xs text-gray-500 dark:text-gray-400" data-i18n-html="cv.page.exp.3.stack">
                 <strong>Stack:</strong> Java 8, OracleWebLogic 12.2, Quarkus, Oracle DB 19, Angular.js, OAuth2/OIDC
               </p>
             </article>
@@ -226,16 +233,16 @@
             <article>
               <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-2">
                 <h3 class="font-bold text-lg">JavaEE Consultant — Team Leader</h3>
-                <time class="text-sm text-gray-500 dark:text-gray-400 shrink-0" datetime="2018-08">08/2018 – 09/2019</time>
+                <time class="text-sm text-gray-500 dark:text-gray-400 shrink-0" datetime="2018-08" data-i18n="cv.page.exp.4.date">08/2018 – 09/2019</time>
               </div>
-              <p class="text-brand-700 dark:text-brand-400 font-medium text-sm mb-2">Engineering S.p.A. — Progetto EBAAS Poste</p>
-              <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-2">
+              <p class="text-brand-700 dark:text-brand-400 font-medium text-sm mb-2" data-i18n="cv.page.exp.4.project">Engineering S.p.A. — Progetto EBAAS Poste</p>
+              <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-2" data-i18n-html="cv.page.exp.4.desc">
                 Analisi AS IS delle competenze e dei processi operativi di un gruppo di sviluppo proveniente da una
                 nuova società acquisita. Definizione dei processi e delle risorse TO BE per la costituzione di laboratori
                 dedicati sul territorio nazionale. Il progetto riguarda la piattaforma eBAAS di gestione di prodotti
                 assicurativi e finanziari di Poste Italiane.
               </p>
-              <p class="text-xs text-gray-500 dark:text-gray-400">
+              <p class="text-xs text-gray-500 dark:text-gray-400" data-i18n-html="cv.page.exp.4.stack">
                 <strong>Stack:</strong> Java 8, OracleWebLogic 12.2, JAX-WS, Oracle DB 12
               </p>
             </article>
@@ -245,14 +252,14 @@
             <article>
               <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-2">
                 <h3 class="font-bold text-lg">JavaEE Consultant — Team Leader</h3>
-                <time class="text-sm text-gray-500 dark:text-gray-400 shrink-0" datetime="2016-05">05/2016 – 08/2018</time>
+                <time class="text-sm text-gray-500 dark:text-gray-400 shrink-0" datetime="2016-05" data-i18n="cv.page.exp.5.date">05/2016 – 08/2018</time>
               </div>
-              <p class="text-brand-700 dark:text-brand-400 font-medium text-sm mb-2">Engineering S.p.A. — Progetto Exabeat</p>
-              <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-2">
+              <p class="text-brand-700 dark:text-brand-400 font-medium text-sm mb-2" data-i18n="cv.page.exp.5.project">Engineering S.p.A. — Progetto Exabeat</p>
+              <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-2" data-i18n-html="cv.page.exp.5.desc">
                 Team Leader sul modulo "Control Process Module" del progetto Exabeat: piattaforma BigData internazionale (Italia–Spagna)
                 per la gestione di misure elettriche per ENDESA.
               </p>
-              <p class="text-xs text-gray-500 dark:text-gray-400">
+              <p class="text-xs text-gray-500 dark:text-gray-400" data-i18n-html="cv.page.exp.5.stack">
                 <strong>Stack:</strong> Java 7, Scala 1.0, Spark 1.6, HBase 0.97, Phoenix, Maven, PostgreSQL, Hadoop, WildFly 9, SVN
               </p>
             </article>
@@ -262,13 +269,13 @@
             <article>
               <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-2">
                 <h3 class="font-bold text-lg">JavaEE Consultant — Sviluppatore Senior</h3>
-                <time class="text-sm text-gray-500 dark:text-gray-400 shrink-0" datetime="2013-09">09/2013 – 05/2016</time>
+                <time class="text-sm text-gray-500 dark:text-gray-400 shrink-0" datetime="2013-09" data-i18n="cv.page.exp.6.date">09/2013 – 05/2016</time>
               </div>
               <p class="text-brand-700 dark:text-brand-400 font-medium text-sm mb-2">Engineering S.p.A.</p>
-              <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-2">
+              <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-2" data-i18n-html="cv.page.exp.6.desc">
                 Analisi, progettazione e sviluppo sul progetto Prince, Document Management System che implementa la normativa sul Protocollo Informatico per INAIL.
               </p>
-              <p class="text-xs text-gray-500 dark:text-gray-400">
+              <p class="text-xs text-gray-500 dark:text-gray-400" data-i18n-html="cv.page.exp.6.stack">
                 <strong>Stack:</strong> Java 6 J2EE, EJB 3.0, Spring, Oracle DB 11g, WebLogic 10.3.6, Quartz, Maven, SVN, NEXUS, RTC
               </p>
             </article>
@@ -278,13 +285,13 @@
             <article>
               <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-2">
                 <h3 class="font-bold text-lg">JavaEE Consultant</h3>
-                <time class="text-sm text-gray-500 dark:text-gray-400 shrink-0" datetime="2011-04">04/2011 – 09/2013</time>
+                <time class="text-sm text-gray-500 dark:text-gray-400 shrink-0" datetime="2011-04" data-i18n="cv.page.exp.7.date">04/2011 – 09/2013</time>
               </div>
-              <p class="text-brand-700 dark:text-brand-400 font-medium text-sm mb-2">DSTech</p>
-              <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-2">
+              <p class="text-brand-700 dark:text-brand-400 font-medium text-sm mb-2" data-i18n="cv.page.exp.7.project">DSTech</p>
+              <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed mb-2" data-i18n-html="cv.page.exp.7.desc">
                 Sviluppo di un DMS per il Protocollo Informatico per INAIL. Bug fixing, sviluppo di nuove funzionalità, integrazione con web service di firma digitale e data remediation.
               </p>
-              <p class="text-xs text-gray-500 dark:text-gray-400">
+              <p class="text-xs text-gray-500 dark:text-gray-400" data-i18n-html="cv.page.exp.7.stack">
                 <strong>Stack:</strong> Java 6 J2EE, EJB 3.0, JSF, Oracle DB 11g, JBoss EAP 5.1, JasperReport, JavaMail, SVN
               </p>
             </article>
@@ -294,10 +301,10 @@
             <article>
               <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-2">
                 <h3 class="font-bold text-lg">JavaEE Internship</h3>
-                <time class="text-sm text-gray-500 dark:text-gray-400 shrink-0" datetime="2011-03">03/2011 – 04/2011</time>
+                <time class="text-sm text-gray-500 dark:text-gray-400 shrink-0" datetime="2011-03" data-i18n="cv.page.exp.8.date">03/2011 – 04/2011</time>
               </div>
               <p class="text-brand-700 dark:text-brand-400 font-medium text-sm mb-2">DSTech</p>
-              <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+              <p class="text-gray-700 dark:text-gray-300 text-sm leading-relaxed" data-i18n-html="cv.page.exp.8.desc">
                 Stage full-time su tecnologie JavaEE: Servlet, JSP, JavaScript, Struts2, Hibernate, Oracle PL-SQL.
               </p>
             </article>
@@ -310,37 +317,37 @@
 
       <!-- FORMAZIONE -->
       <section id="education" class="mb-10">
-        <h2 class="text-xs font-bold tracking-widest text-brand-600 dark:text-brand-400 uppercase mb-6">Formazione</h2>
+        <h2 class="text-xs font-bold tracking-widest text-brand-600 dark:text-brand-400 uppercase mb-6" data-i18n="cv.page.edu.h2">Formazione</h2>
 
         <ol class="space-y-6">
           <li>
             <article>
               <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1">
-                <h3 class="font-bold">Laurea in Ingegneria Informatica</h3>
+                <h3 class="font-bold" data-i18n="cv.page.edu.1.title">Laurea in Ingegneria Informatica</h3>
                 <time class="text-sm text-gray-500 dark:text-gray-400" datetime="2010-03">03/2010</time>
               </div>
-              <p class="text-brand-700 dark:text-brand-400 text-sm font-medium mb-1">Università degli Studi di Palermo</p>
-              <p class="text-sm text-gray-600 dark:text-gray-400">Voto: 100/110 · Tesi: File System in Linux System</p>
+              <p class="text-brand-700 dark:text-brand-400 text-sm font-medium mb-1" data-i18n="cv.page.edu.1.uni">Università degli Studi di Palermo</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400" data-i18n="cv.page.edu.1.score">Voto: 100/110 · Tesi: File System in Linux System</p>
             </article>
           </li>
           <li>
             <article>
               <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1">
-                <h3 class="font-bold">Training Oracle WebCenter Content 11g (32h)</h3>
+                <h3 class="font-bold" data-i18n="cv.page.edu.2.title">Training Oracle WebCenter Content 11g (32h)</h3>
                 <time class="text-sm text-gray-500 dark:text-gray-400" datetime="2013-07">07/2013</time>
               </div>
-              <p class="text-brand-700 dark:text-brand-400 text-sm font-medium mb-1">Oracle University · Engineering, Roma</p>
-              <p class="text-sm text-gray-600 dark:text-gray-400">Installazione e amministrazione di Oracle WebCenter Content 11g.</p>
+              <p class="text-brand-700 dark:text-brand-400 text-sm font-medium mb-1" data-i18n="cv.page.edu.2.uni">Oracle University · Engineering, Roma</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400" data-i18n="cv.page.edu.2.desc">Installazione e amministrazione di Oracle WebCenter Content 11g.</p>
             </article>
           </li>
           <li>
             <article>
               <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 mb-1">
-                <h3 class="font-bold">Diploma Scientifico</h3>
+                <h3 class="font-bold" data-i18n="cv.page.edu.3.title">Diploma Scientifico</h3>
                 <time class="text-sm text-gray-500 dark:text-gray-400" datetime="2002-07">07/2002</time>
               </div>
-              <p class="text-brand-700 dark:text-brand-400 text-sm font-medium mb-1">Liceo Scientifico "Elio Vittorini", Gela (CL)</p>
-              <p class="text-sm text-gray-600 dark:text-gray-400">Voto: 90/100</p>
+              <p class="text-brand-700 dark:text-brand-400 text-sm font-medium mb-1" data-i18n="cv.page.edu.3.uni">Liceo Scientifico "Elio Vittorini", Gela (CL)</p>
+              <p class="text-sm text-gray-600 dark:text-gray-400" data-i18n="cv.page.edu.3.score">Voto: 90/100</p>
             </article>
           </li>
         </ol>
@@ -350,10 +357,10 @@
 
       <!-- COMPETENZE -->
       <section id="skills" class="mb-10">
-        <h2 class="text-xs font-bold tracking-widest text-brand-600 dark:text-brand-400 uppercase mb-6">Competenze</h2>
+        <h2 class="text-xs font-bold tracking-widest text-brand-600 dark:text-brand-400 uppercase mb-6" data-i18n="cv.page.skills.h2">Competenze</h2>
         <div class="space-y-4">
           <div>
-            <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Linguaggi &amp; Framework</h3>
+            <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2" data-i18n="cv.page.skills.languages.label">Linguaggi &amp; Framework</h3>
             <div class="flex flex-wrap gap-2">
               <span class="px-2.5 py-1 rounded-md text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">Java / JavaEE</span>
               <span class="px-2.5 py-1 rounded-md text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">Quarkus</span>
@@ -373,7 +380,7 @@
             </div>
           </div>
           <div>
-            <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">Ambienti &amp; Strumenti</h3>
+            <h3 class="text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2" data-i18n="cv.page.skills.tools.label">Ambienti &amp; Strumenti</h3>
             <div class="flex flex-wrap gap-2">
               <span class="px-2.5 py-1 rounded-md text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">Git / SVN / Maven</span>
               <span class="px-2.5 py-1 rounded-md text-xs bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300">GitHub Copilot CLI</span>
@@ -393,15 +400,15 @@
 
       <!-- LINGUE -->
       <section id="languages" class="mb-10">
-        <h2 class="text-xs font-bold tracking-widest text-brand-600 dark:text-brand-400 uppercase mb-4">Lingue</h2>
+        <h2 class="text-xs font-bold tracking-widest text-brand-600 dark:text-brand-400 uppercase mb-4" data-i18n="cv.page.lang.h2">Lingue</h2>
         <dl class="grid grid-cols-2 sm:grid-cols-3 gap-3">
           <div class="flex flex-col">
-            <dt class="font-semibold text-sm">Italiano</dt>
-            <dd class="text-sm text-gray-500 dark:text-gray-400">Madrelingua</dd>
+            <dt class="font-semibold text-sm" data-i18n="cv.page.lang.it.name">Italiano</dt>
+            <dd class="text-sm text-gray-500 dark:text-gray-400" data-i18n="cv.page.lang.it.level">Madrelingua</dd>
           </div>
           <div class="flex flex-col">
-            <dt class="font-semibold text-sm">Inglese</dt>
-            <dd class="text-sm text-gray-500 dark:text-gray-400">Professionale</dd>
+            <dt class="font-semibold text-sm" data-i18n="cv.page.lang.en.name">Inglese</dt>
+            <dd class="text-sm text-gray-500 dark:text-gray-400" data-i18n="cv.page.lang.en.level">Professionale</dd>
           </div>
         </dl>
       </section>
@@ -416,8 +423,8 @@
         </svg>
         francescodidio.com
       </a>
-      <p>Ultimo aggiornamento: <time datetime="2026-03">marzo 2026</time></p>
-      <a href="privacy-policy.html" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Privacy Policy</a>
+      <p data-i18n="cv.page.footer.date">Ultimo aggiornamento: <time datetime="2026-03">marzo 2026</time></p>
+      <a href="privacy-policy.html" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors" data-i18n="cv.page.footer.privacy">Privacy Policy</a>
     </footer>
 
   </div>
