@@ -1,0 +1,52 @@
+# francescodidio.com — Francesco di Dio, Technical Manager
+
+> Sito personale di Francesco di Dio: profilo professionale, portfolio di progetti software e curriculum vitae. Disponibile in italiano e inglese.
+
+## Informazioni chiave
+
+- **Identità**: Francesco di Dio, Technical Manager ed Engineering Leader presso Engineering S.p.A., Palermo (IT)
+- **Ruolo attuale**: Technical Manager dal gennaio 2026 — monitoraggio economico, allocazione risorse, guida tecnica con focus GenAI
+- **Specializzazioni**: GenAI Spec-Driven development, SSO & Identity Management (5M+ account), microservizi con Quarkus, sicurezza OAuth2/OIDC, Spring Batch
+- **Stack tecnico principale**: Java (6–8), Quarkus, Python 3 / Flask, Scala, Spark, Oracle DB, PostgreSQL, DB2, Angular.js, WildFly, WebLogic
+- **Formazione**: Laurea in Ingegneria Informatica, Università degli Studi di Palermo — 100/110 (2010)
+- **Esperienze rilevanti**:
+  - 2026–presente: Technical Manager, Engineering S.p.A.
+  - 2025–2026: Team Leader Batch Anonimizzazione GDPR (5M record, 100% Spec-Driven GenAI workflow)
+  - 2019–2025: Team Leader / Project Manager, settore GDO — SSO, MFA, OAuth2/OIDC, Quarkus
+  - 2018–2019: Analisi competenze e processi, progetto eBAAS Poste Italiane
+  - 2016–2018: Team Leader su progetto BigData Exabeat (Italia–Spagna, ENDESA)
+  - 2013–2016: Sviluppo Document Management System per INAIL (progetto Prince)
+  - 2011–2013: DMS e integrazione firma digitale per INAIL (DSTech)
+- **Progetti portfolio**:
+  - JSimLife — simulatore A-Life in Java 6 con reti neurali (MIT)
+  - PySpendless3 — gestione spese familiari, Python 3 / Flask / OAuth2 Google, spec-driven
+  - NerdsLand — laboratorio di comunicazione geek e divulgazione tecnologica
+  - antonio-occhipinti.com — portfolio acquerellista, stack statico GenAI Spec-Driven, i18n IT/EN
+- **Target**: recruiter, collaboratori tecnici, aziende IT, developer interessati a GenAI Spec-Driven
+- **Lingue**: italiano (madrelingua), inglese (professionale)
+- **Contatto**: f.didio.1983@gmail.com
+
+## Risorse e documentazione
+
+### Pagine principali
+
+- [Homepage — Profilo, Portfolio, CV, Contatti](https://francescodidio.com/)
+- [Curriculum Vitae completo](https://francescodidio.com/cv.html)
+- [Privacy Policy](https://francescodidio.com/privacy-policy.html)
+
+### Profili esterni
+
+- [LinkedIn](https://it.linkedin.com/in/didiofrancesco)
+- [GitHub](https://github.com/tabuto)
+- [Twitter / X](https://twitter.com/tabuto83)
+
+### Portfolio — codice sorgente e progetti live
+
+- [JSimLife su GitHub Pages](http://tabuto.github.io/jsimlife/)
+- [PySpendless3 su GitHub](https://github.com/tabuto/pyspendless3)
+- [NerdsLand su Facebook](https://www.facebook.com/profile.php?id=61580335090608)
+- [antonio-occhipinti.com — sito live](https://occhipintiantonio.com)
+
+### Dati strutturati
+
+- [Sitemap XML](https://francescodidio.com/sitemap.xml)
