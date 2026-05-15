@@ -10,7 +10,7 @@
 (function () {
   'use strict';
 
-  var GA_ID = 'UA-11438577-7';
+  var GA_ID = 'G-FEB9WK0152';
   var COOKIE_NAME = 'cc_status';
   var COOKIE_DAYS = 180; // 6 mesi
 
