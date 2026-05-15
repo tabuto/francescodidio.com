@@ -157,23 +157,25 @@
     div.id = 'cc-banner';
     div.setAttribute('role', 'dialog');
     div.setAttribute('aria-modal', 'true');
-    div.setAttribute('aria-label', 'Preferenze cookie');
+    var lang = document.documentElement.getAttribute('data-lang') || 'it';
+    var s = (window.I18N && window.I18N[lang]) ? window.I18N[lang] : null;
+    function t(key, fallback) { return (s && s[key]) ? s[key] : fallback; }
+    div.setAttribute('aria-label', t('cc.dialog.label', 'Preferenze cookie'));
     div.innerHTML =
       '<div class="cc-inner">' +
-        '<button id="cc-close" aria-label="Chiudi e rifiuta tutti i cookie" title="Rifiuta e chiudi">✕</button>' +
-        '<p>Questo sito usa cookie tecnici necessari e, previo consenso, cookie analitici ' +
-        '(Google Analytics) per misurare le visite e migliorare l\'esperienza.</p>' +
+        '<button id="cc-close" data-i18n-label="cc.close.label" aria-label="' + t('cc.close.label', 'Chiudi e rifiuta tutti i cookie') + '" title="' + t('cc.close.label', 'Rifiuta e chiudi') + '">✕</button>' +
+        '<p data-i18n="cc.text">' + t('cc.text', 'Questo sito usa cookie tecnici necessari e, previo consenso, cookie analitici (Google Analytics) per misurare le visite e migliorare l\'esperienza.') + '</p>' +
         '<div id="cc-actions">' +
-          '<button id="cc-accept-all">Accetta tutti</button>' +
-          '<button id="cc-reject-all">Rifiuta tutti</button>' +
-          '<button id="cc-customize">Personalizza</button>' +
+          '<button id="cc-accept-all" data-i18n="cc.accept">' + t('cc.accept', 'Accetta tutti') + '</button>' +
+          '<button id="cc-reject-all" data-i18n="cc.reject">' + t('cc.reject', 'Rifiuta tutti') + '</button>' +
+          '<button id="cc-customize" data-i18n="cc.customize">' + t('cc.customize', 'Personalizza') + '</button>' +
         '</div>' +
         '<div id="cc-preferences" hidden>' +
           '<label>' +
             '<input type="checkbox" id="cc-analytics" />' +
-            '<span>Cookie analitici (Google Analytics) — misurazione anonima delle visite</span>' +
+            '<span data-i18n="cc.analytics.label">' + t('cc.analytics.label', 'Cookie analitici (Google Analytics) — misurazione anonima delle visite') + '</span>' +
           '</label>' +
-          '<br><button id="cc-save-prefs">Salva preferenze</button>' +
+          '<br><button id="cc-save-prefs" data-i18n="cc.save">' + t('cc.save', 'Salva preferenze') + '</button>' +
         '</div>' +
       '</div>';
     return div;
@@ -182,7 +184,10 @@
   function createReopenBtn() {
     var btn = document.createElement('button');
     btn.id = 'cc-reopen';
-    btn.setAttribute('aria-label', 'Gestisci preferenze cookie');
+    var lang2 = document.documentElement.getAttribute('data-lang') || 'it';
+    var s2 = (window.I18N && window.I18N[lang2]) ? window.I18N[lang2] : null;
+    btn.setAttribute('data-i18n-label', 'cc.reopen.label');
+    btn.setAttribute('aria-label', (s2 && s2['cc.reopen.label']) ? s2['cc.reopen.label'] : 'Gestisci preferenze cookie');
     btn.textContent = '🍪 Privacy';
     return btn;
   }
