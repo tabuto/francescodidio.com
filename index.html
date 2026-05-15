@@ -9,6 +9,9 @@
   <meta name="author" content="Francesco di Dio">
   <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
   <link rel="canonical" href="https://francescodidio.com/">
+  <link rel="alternate" hreflang="it" href="https://francescodidio.com/" />
+  <link rel="alternate" hreflang="en" href="https://francescodidio.com/" />
+  <link rel="alternate" hreflang="x-default" href="https://francescodidio.com/" />
   <link rel="sitemap" type="application/xml" href="/sitemap.xml">
   <!-- Open Graph -->
   <meta property="og:title" content="Francesco di Dio — Technical Manager &amp; Engineering Leader">
@@ -49,6 +52,7 @@
   </script>
   <!-- Theme: deve stare in <head> per evitare FOUC -->
   <script src="assets/js/theme.js"></script>
+  <script src="assets/js/i18n.js"></script>
   <!-- JSON-LD Structured Data -->
   <script type="application/ld+json">
   {
@@ -68,7 +72,7 @@
   }
   </script>
 </head>
-<body class="bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100 antialiased">
+<body class="bg-white text-gray-900 dark:bg-gray-950 dark:text-gray-100 antialiased" data-i18n-page="index">
 
   <!-- ═══════════════════════════════════════════
        NAVBAR — sticky, responsive, dark/light
@@ -87,10 +91,10 @@
 
         <!-- Link navigazione desktop -->
         <div class="hidden md:flex items-center gap-6 text-sm font-medium">
-          <a href="#about"     class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">About</a>
-          <a href="#portfolio" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Portfolio</a>
-          <a href="#cv"        class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">CV</a>
-          <a href="#contact"   class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Contatti</a>
+          <a href="#about"     class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors" data-i18n="nav.about">About</a>
+          <a href="#portfolio" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors" data-i18n="nav.portfolio">Portfolio</a>
+          <a href="#cv"        class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors" data-i18n="nav.cv">CV</a>
+          <a href="#contact"   class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors" data-i18n="nav.contact">Contatti</a>
         </div>
 
         <!-- Destra: toggle tema + hamburger mobile -->
@@ -113,6 +117,9 @@
             </svg>
           </button>
 
+          <!-- Language toggle -->
+          <button id="lang-toggle" onclick="toggleLang()" data-i18n-label="lang.toggle.label" aria-label="Switch to English" class="px-2 py-1 rounded text-xs font-semibold border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition"><span data-lang-label>EN</span></button>
+
           <!-- Hamburger mobile -->
           <button
             id="nav-toggle"
@@ -132,10 +139,10 @@
       <!-- Menu mobile (collassabile) -->
       <div id="nav-mobile" class="hidden md:hidden pb-4">
         <div class="flex flex-col gap-3 text-sm font-medium pt-2 border-t border-gray-200 dark:border-gray-800">
-          <a href="#about"     onclick="document.getElementById('nav-mobile').classList.add('hidden')" class="py-1 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">About</a>
-          <a href="#portfolio" onclick="document.getElementById('nav-mobile').classList.add('hidden')" class="py-1 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Portfolio</a>
-          <a href="#cv"        onclick="document.getElementById('nav-mobile').classList.add('hidden')" class="py-1 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">CV</a>
-          <a href="#contact"   onclick="document.getElementById('nav-mobile').classList.add('hidden')" class="py-1 hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Contatti</a>
+          <a href="#about"     onclick="document.getElementById('nav-mobile').classList.add('hidden')" class="py-1 hover:text-brand-600 dark:hover:text-brand-400 transition-colors" data-i18n="nav.about">About</a>
+          <a href="#portfolio" onclick="document.getElementById('nav-mobile').classList.add('hidden')" class="py-1 hover:text-brand-600 dark:hover:text-brand-400 transition-colors" data-i18n="nav.portfolio">Portfolio</a>
+          <a href="#cv"        onclick="document.getElementById('nav-mobile').classList.add('hidden')" class="py-1 hover:text-brand-600 dark:hover:text-brand-400 transition-colors" data-i18n="nav.cv">CV</a>
+          <a href="#contact"   onclick="document.getElementById('nav-mobile').classList.add('hidden')" class="py-1 hover:text-brand-600 dark:hover:text-brand-400 transition-colors" data-i18n="nav.contact">Contatti</a>
         </div>
       </div>
     </div>
@@ -159,10 +166,10 @@
         Java · Quarkus · Python · OAuth2/OIDC · Spec-Driven · GenAI
       </p>
       <div class="animate-fade-in-up animation-delay-500 flex flex-col sm:flex-row gap-4 justify-center">
-        <a href="#portfolio" class="inline-block px-6 py-3 rounded-lg bg-brand-600 text-white font-medium hover:bg-brand-700 transition-colors">
+        <a href="#portfolio" class="inline-block px-6 py-3 rounded-lg bg-brand-600 text-white font-medium hover:bg-brand-700 transition-colors" data-i18n="hero.cta.portfolio">
           Vedi Portfolio
         </a>
-        <a href="cv.html" class="inline-block px-6 py-3 rounded-lg border border-gray-300 dark:border-gray-700 font-medium hover:border-brand-500 hover:text-brand-600 dark:hover:border-brand-400 dark:hover:text-brand-400 transition-colors">
+        <a href="cv.html" class="inline-block px-6 py-3 rounded-lg border border-gray-300 dark:border-gray-700 font-medium hover:border-brand-500 hover:text-brand-600 dark:hover:border-brand-400 dark:hover:text-brand-400 transition-colors" data-i18n="hero.cta.cv">
           Curriculum →
         </a>
       </div>
@@ -193,18 +200,18 @@
         <!-- Bio -->
         <div>
           <h2 class="text-3xl font-bold mb-4">About me</h2>
-          <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+          <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4" data-i18n-html="about.p1">
             Manager tecnico con oltre 2 anni di esperienza nella guida di progetti critici per la
             <strong>GDO</strong>, focalizzato sull'integrazione tra ingegneria del software tradizionale
             e innovazione <strong>GenAI</strong>.
           </p>
-          <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4">
+          <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-4" data-i18n-html="about.p2">
             Leadership nell'adozione di metodologie <strong>Spec-Driven</strong> per la produzione di
             software enterprise, gestione di progetti <strong>SSO &amp; Identity Management</strong>
             per oltre 5 milioni di account, architetture microservizi (<strong>Quarkus</strong>) e
             sicurezza (<strong>OAuth2/OIDC</strong>).
           </p>
-          <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6">
+          <p class="text-gray-600 dark:text-gray-300 leading-relaxed mb-6" data-i18n-html="about.p3">
             Sempre interessato a confrontarmi su come la GenAI stia ridefinendo i processi di
             sviluppo enterprise. Parliamone!
           </p>
@@ -229,7 +236,7 @@
     <nav id="social" aria-label="Link social" class="py-14 px-4 bg-gray-50 dark:bg-gray-900/50 border-y border-gray-200 dark:border-gray-800">
       <div class="max-w-5xl mx-auto">
         <h2 class="sr-only">Profili social</h2>
-        <p class="text-center text-xs font-semibold tracking-widest text-gray-400 uppercase mb-8">Trovami su</p>
+        <p class="text-center text-xs font-semibold tracking-widest text-gray-400 uppercase mb-8" data-i18n="social.label">Trovami su</p>
         <ul class="flex flex-wrap justify-center gap-4 sm:gap-6" role="list">
 
           <!-- LinkedIn -->
@@ -300,8 +307,8 @@
          PORTFOLIO
     ═══════════════════════════════════════════ -->
     <section id="portfolio" class="py-20 px-4 max-w-5xl mx-auto">
-      <h2 class="text-3xl font-bold mb-2">Portfolio</h2>
-      <p class="text-gray-500 dark:text-gray-400 mb-12">Alcuni progetti personali a cui ho lavorato nel tempo libero.</p>
+      <h2 class="text-3xl font-bold mb-2" data-i18n="portfolio.h2">Portfolio</h2>
+      <p class="text-gray-500 dark:text-gray-400 mb-12" data-i18n="portfolio.subtitle">Alcuni progetti personali a cui ho lavorato nel tempo libero.</p>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
 
@@ -316,7 +323,7 @@
           </div>
           <div class="flex flex-col flex-1 p-5">
             <h3 class="text-lg font-bold mb-2">JSimLife</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4 flex-1">
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4 flex-1" data-i18n="portfolio.jsimlife.desc">
               Simulatore A-Life in Java 6. Ambiente dinamico con forme di vita dotate di codice genetico e reti neurali. Licenza MIT.
             </p>
             <ul class="flex flex-wrap gap-1.5 mb-4" aria-label="Tecnologie usate">
@@ -326,7 +333,7 @@
               <li class="px-2 py-0.5 rounded-full text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">Open Source</li>
             </ul>
             <a href="http://tabuto.github.io/jsimlife/" target="_blank" rel="noopener noreferrer"
-               class="text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline">
+               class="text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline" data-i18n="portfolio.cta">
               Vedi progetto →
             </a>
           </div>
@@ -343,7 +350,7 @@
           </div>
           <div class="flex flex-col flex-1 p-5">
             <h3 class="text-lg font-bold mb-2">PySpendless3</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4 flex-1">
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4 flex-1" data-i18n="portfolio.pyspendless.desc">
               Web app per la gestione condivisa delle spese familiari in Python 3 e Flask, deployata su PythonAnywhere con integrazione OAuth2 Google. Sviluppata interamente con approccio spec-driven.
             </p>
             <ul class="flex flex-wrap gap-1.5 mb-4" aria-label="Tecnologie usate">
@@ -353,7 +360,7 @@
               <li class="px-2 py-0.5 rounded-full text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">Spec-Driven</li>
             </ul>
             <a href="https://github.com/tabuto/pyspendless3" target="_blank" rel="noopener noreferrer"
-               class="text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline">
+               class="text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline" data-i18n="portfolio.cta">
               Vedi progetto →
             </a>
           </div>
@@ -368,7 +375,7 @@
           </div>
           <div class="flex flex-col flex-1 p-5">
             <h3 class="text-lg font-bold mb-2">NerdsLand</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4 flex-1">
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4 flex-1" data-i18n="portfolio.nerdsland.desc">
               Laboratorio creativo dove la cultura geek incontra la comunicazione strategica. Trend complessi, innovazioni tecnologiche e pop culture trasformati in contenuti narrativi capaci di generare community.
             </p>
             <ul class="flex flex-wrap gap-1.5 mb-4" aria-label="Tecnologie usate">
@@ -377,7 +384,7 @@
               <li class="px-2 py-0.5 rounded-full text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">Community</li>
             </ul>
             <a href="https://www.facebook.com/profile.php?id=61580335090608" target="_blank" rel="noopener noreferrer"
-               class="text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline">
+               class="text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline" data-i18n="portfolio.cta">
               Vedi progetto →
             </a>
           </div>
@@ -394,7 +401,7 @@
           </div>
           <div class="flex flex-col flex-1 p-5">
             <h3 class="text-lg font-bold mb-2">Antonio Occhipinti</h3>
-            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4 flex-1">
+            <p class="text-sm text-gray-600 dark:text-gray-400 leading-relaxed mb-4 flex-1" data-i18n="portfolio.occhipinti.desc">
               Sito portfolio per Antonio Occhipinti, maestro dell'acquerello. Progettato e sviluppato interamente con approccio GenAI Spec-Driven, con stack statico senza framework o build step, contenuti Markdown caricati a runtime, toggle IT/EN, lightbox per le gallerie e cache-busting sugli asset dinamici.
             </p>
             <ul class="flex flex-wrap gap-1.5 mb-4" aria-label="Tecnologie usate">
@@ -408,7 +415,7 @@
               <li class="px-2 py-0.5 rounded-full text-xs bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400">Static Site</li>
             </ul>
             <a href="https://occhipintiantonio.com" target="_blank" rel="noopener noreferrer"
-               class="text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline">
+               class="text-sm font-medium text-brand-600 dark:text-brand-400 hover:underline" data-i18n="portfolio.cta.occhipinti">
               Vedi il sito →
             </a>
           </div>
@@ -422,38 +429,38 @@
     ═══════════════════════════════════════════ -->
     <section id="cv" class="py-20 px-4 bg-gray-50 dark:bg-gray-900/50 border-y border-gray-200 dark:border-gray-800">
       <div class="max-w-5xl mx-auto">
-        <h2 class="text-3xl font-bold mb-2">Curriculum</h2>
-        <p class="text-gray-500 dark:text-gray-400 mb-12">Un riepilogo della mia carriera professionale.</p>
+        <h2 class="text-3xl font-bold mb-2" data-i18n="cv.h2">Curriculum</h2>
+        <p class="text-gray-500 dark:text-gray-400 mb-12" data-i18n="cv.subtitle">Un riepilogo della mia carriera professionale.</p>
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
 
           <!-- Timeline esperienze -->
           <div>
-            <h3 class="text-sm font-semibold tracking-widest text-gray-400 uppercase mb-6">Esperienze</h3>
+            <h3 class="text-sm font-semibold tracking-widest text-gray-400 uppercase mb-6" data-i18n="cv.exp.label">Esperienze</h3>
             <ol class="relative border-l-2 border-brand-200 dark:border-brand-800 space-y-8">
 
               <li class="pl-6">
                 <span class="absolute -left-[9px] mt-1.5 w-4 h-4 rounded-full bg-brand-500 border-2 border-white dark:border-gray-950"></span>
-                <time class="text-xs font-medium text-brand-600 dark:text-brand-400">01/2026 – attualmente</time>
-                <h4 class="font-semibold mt-0.5">Technical Manager</h4>
+                <time class="text-xs font-medium text-brand-600 dark:text-brand-400" data-i18n="cv.exp1.date">01/2026 – attualmente</time>
+                <h4 class="font-semibold mt-0.5" data-i18n="cv.exp1.role">Technical Manager</h4>
                 <p class="text-sm text-gray-500 dark:text-gray-400">Engineering S.p.A.</p>
-                <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Monitoraggio economico, allocazione e crescita risorse, guida tecnica di progetti con focus su GenAI.</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-1" data-i18n="cv.exp1.desc">Monitoraggio economico, allocazione e crescita risorse, guida tecnica di progetti con focus su GenAI.</p>
               </li>
 
               <li class="pl-6">
                 <span class="absolute -left-[9px] mt-1.5 w-4 h-4 rounded-full bg-brand-400 border-2 border-white dark:border-gray-950"></span>
-                <time class="text-xs font-medium text-brand-600 dark:text-brand-400">09/2025 – 01/2026</time>
-                <h4 class="font-semibold mt-0.5">Team Leader — Batch Anonimizzazione</h4>
+                <time class="text-xs font-medium text-brand-600 dark:text-brand-400" data-i18n="cv.exp2.date">09/2025 – 01/2026</time>
+                <h4 class="font-semibold mt-0.5" data-i18n="cv.exp2.role">Team Leader — Batch Anonimizzazione</h4>
                 <p class="text-sm text-gray-500 dark:text-gray-400">Engineering S.p.A.</p>
-                <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Anonimizzazione GDPR di 5M record con workflow 100% Spec-Driven GenAI. Stack: Java 8, Spring Batch, DB2.</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-1" data-i18n="cv.exp2.desc">Anonimizzazione GDPR di 5M record con workflow 100% Spec-Driven GenAI. Stack: Java 8, Spring Batch, DB2.</p>
               </li>
 
               <li class="pl-6">
                 <span class="absolute -left-[9px] mt-1.5 w-4 h-4 rounded-full bg-brand-300 border-2 border-white dark:border-gray-950"></span>
-                <time class="text-xs font-medium text-brand-600 dark:text-brand-400">09/2019 – 09/2025</time>
-                <h4 class="font-semibold mt-0.5">Team Leader — Project Manager</h4>
+                <time class="text-xs font-medium text-brand-600 dark:text-brand-400" data-i18n="cv.exp3.date">09/2019 – 09/2025</time>
+                <h4 class="font-semibold mt-0.5" data-i18n="cv.exp3.role">Team Leader — Project Manager</h4>
                 <p class="text-sm text-gray-500 dark:text-gray-400">Engineering S.p.A.</p>
-                <p class="text-sm text-gray-600 dark:text-gray-400 mt-1">Progetti GDO: SSO con 5M+ account, MFA, OAuth2/OIDC. Stack: Quarkus, Oracle DB 19, Angular.js.</p>
+                <p class="text-sm text-gray-600 dark:text-gray-400 mt-1" data-i18n="cv.exp3.desc">Progetti GDO: SSO con 5M+ account, MFA, OAuth2/OIDC. Stack: Quarkus, Oracle DB 19, Angular.js.</p>
               </li>
 
             </ol>
@@ -462,7 +469,7 @@
           <!-- Skill + formazione + CTA -->
           <div class="flex flex-col gap-8">
             <div>
-              <h3 class="text-sm font-semibold tracking-widest text-gray-400 uppercase mb-6">Competenze</h3>
+              <h3 class="text-sm font-semibold tracking-widest text-gray-400 uppercase mb-6" data-i18n="cv.skills.label">Competenze</h3>
               <div class="flex flex-wrap gap-2">
                 <span class="px-3 py-1 rounded-full text-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">Java / Quarkus</span>
                 <span class="px-3 py-1 rounded-full text-sm border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300">Python / Flask</span>
@@ -476,14 +483,14 @@
             </div>
 
             <div>
-              <h3 class="text-sm font-semibold tracking-widest text-gray-400 uppercase mb-4">Formazione</h3>
-              <p class="font-semibold text-sm">Laurea in Ingegneria Informatica</p>
-              <p class="text-sm text-gray-500 dark:text-gray-400">Università degli Studi di Palermo · 100/110 · 2010</p>
+              <h3 class="text-sm font-semibold tracking-widest text-gray-400 uppercase mb-4" data-i18n="cv.edu.label">Formazione</h3>
+              <p class="font-semibold text-sm" data-i18n="cv.edu.degree">Laurea in Ingegneria Informatica</p>
+              <p class="text-sm text-gray-500 dark:text-gray-400" data-i18n="cv.edu.uni">Università degli Studi di Palermo · 100/110 · 2010</p>
             </div>
 
             <a href="cv.html"
                class="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-brand-600 text-white font-medium hover:bg-brand-700 transition-colors self-start">
-              Vedi il curriculum completo
+              <span data-i18n="cv.cta">Vedi il curriculum completo</span>
               <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5 21 12m0 0-7.5 7.5M21 12H3"/>
               </svg>
@@ -499,8 +506,8 @@
     ═══════════════════════════════════════════ -->
     <section id="contact" class="py-24 px-4 bg-brand-950 dark:bg-gray-950 text-white">
       <div class="max-w-2xl mx-auto text-center">
-        <h2 class="text-3xl font-bold mb-4">Contattami</h2>
-        <p class="text-gray-100 dark:text-gray-300 text-lg mb-10">
+        <h2 class="text-3xl font-bold mb-4" data-i18n="contact.h2">Contattami</h2>
+        <p class="text-gray-100 dark:text-gray-300 text-lg mb-10" data-i18n="contact.p">
           Sono disponibile per collaborazioni, opportunità professionali o semplicemente per una chiacchierata tecnica.
         </p>
 
@@ -510,7 +517,7 @@
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
           </svg>
-          Scrivimi
+          <span data-i18n="contact.cta">Scrivimi</span>
         </a>
 
         <!-- Link social compatti -->
@@ -550,16 +557,16 @@
         <!-- Copyright + credit -->
         <div class="text-sm text-gray-500 dark:text-gray-400 text-center md:text-left">
           <p>&copy; <span id="year"></span> Francesco di Dio</p>
-          <p class="mt-1">Realizzato con amore, IA, HTML5 + Tailwind CSS</p>
+          <p class="mt-1" data-i18n="footer.credit">Realizzato con amore, IA, HTML5 + Tailwind CSS</p>
         </div>
 
         <!-- Link rapidi -->
         <nav aria-label="Link footer" class="flex flex-wrap justify-center gap-4 text-sm text-gray-500 dark:text-gray-400">
-          <a href="#about"     class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">About</a>
-          <a href="#portfolio" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Portfolio</a>
-          <a href="cv.html"    class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">CV</a>
-          <a href="#contact"   class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Contatti</a>
-          <a href="privacy-policy.html" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors">Privacy</a>
+          <a href="#about"     class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors" data-i18n="footer.about">About</a>
+          <a href="#portfolio" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors" data-i18n="footer.portfolio">Portfolio</a>
+          <a href="cv.html"    class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors" data-i18n="footer.cv">CV</a>
+          <a href="#contact"   class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors" data-i18n="footer.contact">Contatti</a>
+          <a href="privacy-policy.html" class="hover:text-brand-600 dark:hover:text-brand-400 transition-colors" data-i18n="footer.privacy">Privacy</a>
         </nav>
 
         <!-- Social icons + toggle tema -->
@@ -603,6 +610,7 @@
               <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.72 9.72 0 0 1 18 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 0 0 3 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 0 0 9.002-5.998Z" />
             </svg>
           </button>
+          <button id="lang-toggle" onclick="toggleLang()" data-i18n-label="lang.toggle.label" aria-label="Switch to English" class="px-2 py-1 rounded text-xs font-semibold border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition"><span data-lang-label>EN</span></button>
         </div>
 
       </div>
