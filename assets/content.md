@@ -16,7 +16,7 @@
 
 ---
 ## About me
-​Manager tecnico con oltre 2 anni di esperienza nella guida di progetti critici per la GDO, focalizzato sull'integrazione tra ingegneria del software tradizionale e innovazione GenAI.
+Technical Manager con oltre 15 anni nello sviluppo enterprise Java, oggi focalizzato su come la GenAI e lo sviluppo Spec-Driven cambiano il modo in cui i team progettano e consegnano software: governance tecnica, automazione dei processi e crescita delle persone, con un approccio pragmatico e orientato all'esecuzione.
 
 ​Expertise principale:
 
