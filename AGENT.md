@@ -144,11 +144,17 @@ Ipotesi escluse con prove, da non riproporre:
 
 - **Non è il TLS sul canale dati.** Con `protocol: ftp` in chiaro il `RETR` del file di stato
   muore in modo identico, senza alcuna risposta del server.
-- **Non è il file di stato mancante.** Con un `.ftp-deploy-sync-state.json` seminato a mano in
-  `_deploytest/`, il `RETR` non riceve `550` (come accade quando il file manca davvero) ma
-  **nessuna risposta**: il trasferimento parte e muore. È anche il motivo per cui l'action
-  annuncia "this must be your first publish!" pur essendo il file presente — interpreta
-  l'errore di socket come file assente.
+- **Il file di stato non è ancora stato provato davvero.** Il seed caricato a mano il 18
+  novembre 2026 è rimasto sul server col nome sbagliato — `ftp-deploy-seed-state.json` invece di
+  `.ftp-deploy-sync-state.json` — quindi tutti i `RETR` hanno cercato un file inesistente.
+  Attenzione a non ripetere l'errore di deduzione fatto allora: la risposta a quel `RETR` **non
+  è deterministica**, a volte arriva un `550 No such file` pulito e a volte nessuna risposta,
+  perché l'RST sul socket dati corre contro la risposta del server. Dall'assenza del `550` non
+  si può concludere che il file ci fosse.
+- **Dal client FTP dell'utente i trasferimenti funzionano**: l'upload manuale del seed è
+  riuscito senza problemi. Il guasto si manifesta solo sulle connessioni che arrivano dal runner
+  GitHub, il che orienta verso una restrizione del firewall legata all'origine della connessione
+  piuttosto che a una configurazione sbagliata del range passivo in assoluto.
 - **Non è la cartella di destinazione sbagliata.** `MKD` risponde `257 ... created` e
   `/_deploytest/` risulta raggiungibile via HTTP (403: esiste, manca solo l'indice).
 - **Non è un ban IP né Fail2Ban.** Il login riesce in ~1-2 secondi anche nei run che poi
