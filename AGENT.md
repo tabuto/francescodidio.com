@@ -117,23 +117,62 @@ differenze.
   l'elenco dei file con dimensioni e hash. Conviene negarne l'accesso via `.htaccess` (il deploy
   continua a funzionare perché l'action lo legge via FTP).
 
-### Punto aperto: la prima pubblicazione sulla root
+### Punto aperto bloccante: il server rifiuta la connessione dati passiva
 
-Su `occhipintiantonio.com` (hosting Plesk + ProFTPD) la **prima** pubblicazione su una cartella
-senza file di stato è morta con `Error: Client is closed because read ECONNRESET (data socket)`
-subito dopo una riga `creating folder "..."`. Ipotesi già escluse con prove: non è un ban IP né
-Fail2Ban (il login riesce in ~2s anche nei run falliti), non è il riuso della sessione TLS
-(fallisce anche con `protocol: ftp` in chiaro), non è la cartella di destinazione sbagliata.
+Diagnosi verificata il 18 novembre 2026. **Il deploy non è mai riuscito a completarsi**: il
+canale di controllo FTP funziona, quello dati no. Nessun accorgimento nel workflow può aggirarlo,
+la causa è lato hosting.
 
-Il sync incrementale invece non ha mai fallito. Il rimedio è portarsi in quella modalità
-seminando a mano un `.ftp-deploy-sync-state.json` nella cartella di destinazione, che contenga
-**tutte le cartelle** e **solo i file già identici** (confrontando lo sha256 della versione live
-scaricata via HTTP con quello locale), omettendo quelli da pubblicare. Dopo il primo sync
-riuscito l'action riscrive da sé il file di stato, quindi il seed serve una volta sola.
+Quello che funziona, in ogni run:
+
+- login (`230 User ... logged in`), in FTPS con `AUTH TLS successful` e TLSv1.2;
+- comandi di controllo: `MKD _deploytest` → `257 "/_deploytest" - Directory successfully created`,
+  `CWD` → `250`;
+- `EPSV` → `229 Entering Extended Passive Mode (|||54755|)`: il server **annuncia** la porta
+  passiva e il socket TCP si connette (basic-ftp stampa `Optimal transfer strategy found.`).
+
+Quello che fallisce, sempre: **qualunque trasferimento reale sul socket dati**.
+
+- Su `server-dir: ./` → `FTPError: 425 Unable to build data connection: Operation not permitted`.
+- Su `server-dir: _deploytest/` → `Error: Client is closed because read ECONNRESET (data socket)`.
+  Attenzione a non leggere male questo secondo errore: basic-ftp considera fatale un errore sul
+  socket dati e chiude l'intero client, per cui l'eccezione salta fuori sul comando di controllo
+  che si trova in volo — tipicamente la riga dopo `creating folder "assets/"`. La creazione della
+  cartella è una vittima, non la causa.
+
+Ipotesi escluse con prove, da non riproporre:
+
+- **Non è il TLS sul canale dati.** Con `protocol: ftp` in chiaro il `RETR` del file di stato
+  muore in modo identico, senza alcuna risposta del server.
+- **Non è il file di stato mancante.** Con un `.ftp-deploy-sync-state.json` seminato a mano in
+  `_deploytest/`, il `RETR` non riceve `550` (come accade quando il file manca davvero) ma
+  **nessuna risposta**: il trasferimento parte e muore. È anche il motivo per cui l'action
+  annuncia "this must be your first publish!" pur essendo il file presente — interpreta
+  l'errore di socket come file assente.
+- **Non è la cartella di destinazione sbagliata.** `MKD` risponde `257 ... created` e
+  `/_deploytest/` risulta raggiungibile via HTTP (403: esiste, manca solo l'indice).
+- **Non è un ban IP né Fail2Ban.** Il login riesce in ~1-2 secondi anche nei run che poi
+  falliscono.
+- **Non è la versione dell'action.** La v4.3.6 riguarda la cancellazione di cartelle e la v4.4.0
+  solo il passaggio a Node 24: nessuna delle due tocca il canale dati.
+
+Il `425 ... Operation not permitted` è un errore **del server**: ProFTPD si rifiuta di aprire il
+canale dati, e `Operation not permitted` è un `EPERM` sul bind della porta passiva. Da verificare
+con l'assistenza dell'hosting: range `PassivePorts` non aperto sul firewall, o ProFTPD senza il
+permesso di fare il bind su quel range.
 
 ### Punto aperto: cache del CSS
 
-`index.html`, `cv.html` e `privacy-policy.html` linkano `assets/css/main.css` **senza
-cache-buster** (nessun `?v=`). Dopo una pubblicazione che cambia il CSS, chi ha già visitato il
-sito può continuare a vedere la versione in cache fino alla scadenza degli header. Da valutare
-l'aggiunta di un parametro di versione.
+`index.html` linka `assets/css/main.css?v=20260314`, ma `cv.html` e `privacy-policy.html` lo
+linkano **senza cache-buster**. Dopo una pubblicazione che cambia il CSS, chi ha già visitato
+quelle due pagine può continuare a vedere la versione in cache fino alla scadenza degli header.
+Conviene allineare le tre pagine allo stesso parametro di versione.
+
+### Nota storica: repo e sito live divergenti
+
+Fino al 18 novembre 2026 il sito live conteneva lavoro mai committato: `assets/js/i18n.js`
+(65 KB, switch di lingua IT/EN con attributi `data-i18n`), `llms.txt`, e versioni più recenti di
+`cv.html`, `privacy-policy.html` e `cookie-consent.js`. La divergenza è stata risolta portando
+quel lavoro nel repository, che ora corrisponde al live file per file. Da qui in avanti il
+repository è l'unica sorgente: **non modificare i file direttamente via FTP**, perché il primo
+deploy riuscito li sovrascriverebbe con la versione del repo.
