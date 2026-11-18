@@ -24,6 +24,11 @@ on:
         description: "Porta FTP. Vuoto = default dell'action (21). Per ftps-legacy serve 990"
         type: string
         default: ""
+      security:
+        description: "Verifica del certificato TLS: strict la pretende valida e serve al riuso della sessione TLS sul canale dati (richiede che FTP_SERVER sia l'hostname del certificato, non un IP); loose la ignora"
+        type: choice
+        options: [strict, loose]
+        default: strict
       log_level:
         description: "Verbosita del log: verbose mostra il dialogo FTP comando per comando"
         type: choice
@@ -72,6 +77,10 @@ jobs:
           # (la root di login FTP coincide con la document root: nessun prefisso.
           #  Se cambiasse, sostituire './' qui sotto con es. httpdocs/)
           server-dir: ${{ github.event_name == 'workflow_dispatch' && inputs.server_dir || './' }}
+          # strict = rejectUnauthorized: true. Senza una identita' verificata del server,
+          # Node >= 22.23/24.17/26.3.1 rifiuta di riusare la sessione TLS sul canale dati
+          # (CVE-2026-48934) e ProFTPD scarta la connessione dati non ripresa.
+          security: ${{ github.event_name == 'workflow_dispatch' && inputs.security || 'strict' }}
           dry-run: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
           log-level: ${{ github.event_name == 'workflow_dispatch' && inputs.log_level || 'standard' }}
           timeout: 60000            # 60s: gli hosting condivisi a volte sono lenti ad aprire il canale dati
