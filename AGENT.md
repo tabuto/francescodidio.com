@@ -143,13 +143,37 @@ Cosa fallisce con `ftps`: **qualunque trasferimento reale sul socket dati**.
   vittima, non la causa.
 - `ftps-legacy` sulla 990 → `Error: Timeout (control socket)`: porta chiusa.
 
-La prova che è il TLS e non il range passivo: lo stesso run con `protocol: ftp` ha pubblicato
-2,79 MB in 27,9 secondi e ha scritto il manifest. Dal client FTP dell'utente anche l'FTPS
-funziona, quindi il problema riguarda la combinazione fra questo server e basic-ftp (il tipico
-caso di ProFTPD che pretende il riuso della sessione TLS sul canale dati).
+La prova che discrimina il TLS e non il range passivo in assoluto: lo stesso run con
+`protocol: ftp` ha pubblicato 2,79 MB in 27,9 secondi e ha scritto il manifest, usando lo stesso
+`EPSV` e la stessa famiglia di porte alte.
 
-Per tornare a cifrare va chiesto all'hosting di verificare `mod_tls` di ProFTPD, in particolare
-`TLSOptions NoSessionReuseRequired`, oppure di aprire la 990 per il TLS implicito.
+Sul **perché** il canale dati cifrato venga rifiutato restano due ipotesi, e dai log a
+disposizione non si distinguono. Non attribuirla alla prima senza verificare:
+
+1. **Il riuso della sessione TLS sul canale dati non riesce.** ProFTPD per default pretende che
+   la connessione dati riprenda la sessione TLS del canale di controllo, e `TLSOptions
+   NoSessionReuseRequired` è l'opt-out. Attenzione però: basic-ftp **tenta** il riuso — in
+   `transfer.js` passa `session: ftp.socket.getSession()` quando apre il socket dati — quindi
+   l'ipotesi regge solo se quella sessione non è riusabile o il server non la accetta, non perché
+   il client non ci provi.
+2. **Un firewall o un ALG FTP lato hosting fa da gatekeeper sulle porte passive.** Un connection
+   tracker come `nf_conntrack_ftp` scopre la porta passiva **leggendo il canale di controllo in
+   chiaro** e la apre dinamicamente. Con FTPS il controllo è cifrato, il tracker non vede la
+   risposta `229 Entering Extended Passive Mode` e la porta resta chiusa: il `425 Unable to build
+   data connection: Operation not permitted` è esattamente ciò che produce un blocco in
+   bind/accept lato server.
+
+Come distinguerle senza accesso al server: in FileZilla, connessione **FTPS explicit** e un
+semplice listing di cartella, che è già un trasferimento sul canale dati. Se il listing e un
+upload funzionano, il canale dati TLS del server è sano per quel client e l'ipotesi 2 regge solo
+se il firewall discrimina per indirizzo di origine; se non funzionano nemmeno da lì, l'ipotesi 2
+diventa la più probabile.
+
+Per tornare a cifrare, le cose da chiedere all'hosting sono quattro: il log TLS di ProFTPD alla
+data e ora di un run fallito, per vedere se compare un handshake rifiutato sul canale dati; se un
+firewall o un ALG FTP gatekeepa le porte passive e come si comporta quando il controllo è
+cifrato; se `TLSOptions NoSessionReuseRequired` è impostato in `mod_tls`; e se si può aprire la
+990 per il TLS implicito.
 
 #### Conseguenza accettata: si pubblica in chiaro
 
