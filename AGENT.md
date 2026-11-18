@@ -44,7 +44,7 @@ che carica via FTPS **solo i file modificati** usando `SamKirkland/FTP-Deploy-Ac
 
 | Trigger | Comportamento |
 |---|---|
-| `push` su `main` | deploy reale su `./`, protocollo `ftps`, log `standard` |
+| `push` su `main` | deploy reale su `./`, protocollo **`ftp` in chiaro**, log `standard` |
 | `workflow_dispatch` | avvio manuale dalla tab *Actions*, con gli input qui sotto |
 
 Input del run manuale:
@@ -53,8 +53,10 @@ Input del run manuale:
   pochi secondi: se un run "riuscito" è durato 2-3 secondi, non ha pubblicato niente.
 - **`server_dir`** (string, default `_deploytest/`) — cartella remota di destinazione, deve
   finire con `/`. `./` pubblica sul sito reale.
-- **`protocol`** (choice, default `ftps`) — `ftp` invia **la password in chiaro**: usarlo solo
-  come diagnostica e cambiare la password dopo.
+- **`protocol`** (choice, default `ftp`) — su questo hosting **solo `ftp` funziona**: `ftps` ha
+  il canale dati rifiutato e `ftps-legacy` la porta 990 chiusa. Vedi il guasto noto piu' sotto.
+- **`port`** (string, default vuoto) — vuoto significa il default dell'action, la 21. Serve solo
+  per `ftps-legacy`, che vuole la 990.
 - **`log_level`** (choice, default `standard`) — `verbose` stampa il dialogo FTP comando per
   comando, indispensabile per diagnosticare i fallimenti.
 
@@ -148,6 +150,16 @@ caso di ProFTPD che pretende il riuso della sessione TLS sul canale dati).
 
 Per tornare a cifrare va chiesto all'hosting di verificare `mod_tls` di ProFTPD, in particolare
 `TLSOptions NoSessionReuseRequired`, oppure di aprire la 990 per il TLS implicito.
+
+#### Conseguenza accettata: si pubblica in chiaro
+
+Decisione del 18 novembre 2026: il deploy sul `push` usa `protocol: ftp`, quindi **la password
+FTP e il contenuto dei file transitano non cifrati a ogni pubblicazione**. Il contenuto e' un
+sito pubblico e non e' un problema; la password si: va trattata come esposta per costruzione.
+Conviene quindi che l'account FTP usato dal deploy sia **dedicato e limitato alla sola document
+root**, senza accesso a shell, database o altre sottoscrizioni. Appena l'hosting sistema il
+canale dati TLS, il valore va riportato a `ftps` in `.github/workflows/deploy-ftp.yml` (una sola
+riga, il fallback del campo `protocol`).
 
 #### Errori di deduzione da non ripetere
 

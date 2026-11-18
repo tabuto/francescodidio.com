@@ -1,4 +1,5 @@
-# Deploy incrementale via FTP dei file modificati su main
+# Deploy incrementale via FTP dei file modificati su main.
+# NB: pubblica in chiaro, non in FTPS: vedi la nota sul protocollo piu' sotto.
 name: Deploy FTP
 
 on:
@@ -15,10 +16,10 @@ on:
         type: string
         default: "_deploytest/"
       protocol:
-        description: "Protocollo: ftps (explicit, porta 21), ftps-legacy (implicit, richiede port 990), ftp (in chiaro)"
+        description: "Protocollo. Su questo hosting solo ftp funziona: ftps ha il canale dati rifiutato e ftps-legacy la 990 chiusa (vedi AGENT.md)"
         type: choice
-        options: [ftps, ftps-legacy, ftp]
-        default: ftps
+        options: [ftp, ftps, ftps-legacy]
+        default: ftp
       port:
         description: "Porta FTP. Vuoto = default dell'action (21). Per ftps-legacy serve 990"
         type: string
@@ -59,8 +60,11 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          # push su main -> ftps; run manuale -> il protocollo scelto negli input
-          protocol: ${{ github.event_name == 'workflow_dispatch' && inputs.protocol || 'ftps' }}
+          # ATTENZIONE: il push pubblica in FTP IN CHIARO, quindi la password FTP e tutti i
+          # file transitano non cifrati a ogni deploy. Scelta consapevole del 18 novembre 2026:
+          # questo hosting rifiuta il canale dati FTPS. Riportare a 'ftps' appena l'assistenza
+          # sistema mod_tls di ProFTPD (TLSOptions NoSessionReuseRequired) - vedi AGENT.md.
+          protocol: ${{ github.event_name == 'workflow_dispatch' && inputs.protocol || 'ftp' }}
           # vuoto -> l'action usa il suo default (21); serve solo per ftps-legacy (990)
           port: ${{ github.event_name == 'workflow_dispatch' && inputs.port || '' }}
           local-dir: ./
