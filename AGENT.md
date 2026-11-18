@@ -163,11 +163,22 @@ disposizione non si distinguono. Non attribuirla alla prima senza verificare:
    data connection: Operation not permitted` è esattamente ciò che produce un blocco in
    bind/accept lato server.
 
-Come distinguerle senza accesso al server: in FileZilla, connessione **FTPS explicit** e un
-semplice listing di cartella, che è già un trasferimento sul canale dati. Se il listing e un
-upload funzionano, il canale dati TLS del server è sano per quel client e l'ipotesi 2 regge solo
-se il firewall discrimina per indirizzo di origine; se non funzionano nemmeno da lì, l'ipotesi 2
-diventa la più probabile.
+Prova raccolta il 18 novembre 2026: **con FileZilla, opzione "Richiedi FTP su TLS esplicito",
+sia il listing della root sia l'upload di un file riescono.** Un listing è già un trasferimento
+sul canale dati, quindi il canale dati cifrato di questo server **non è rotto in assoluto**, e
+l'ipotesi 2 sopravvive solo nella forma ristretta: il firewall discrimina in base
+all'indirizzo di origine, con l'IP dell'amministratore in whitelist e quello del runner GitHub
+no — configurazione comune su Plesk.
+
+Quel test però cambia client **e** rete insieme rispetto al runner, quindi non separa le due
+ipotesi. Per separarle servono due prove, ognuna delle quali tiene fermo un fattore:
+
+- **stessa rete, client diverso**: lanciare basic-ftp dalla macchina dell'amministratore. Se
+  fallisce lì dove FileZilla riesce, è l'ipotesi 1 (il client). Lo script sta fuori dal
+  repository, in `ftps-test/test.mjs` accanto alla cartella del progetto, usa la stessa versione
+  della libreria dell'action e chiede la password al prompt.
+- **stesso client, rete diversa**: FileZilla in FTPS explicit da un hotspot telefonico o una VPN.
+  Se da lì il listing fallisce, è l'ipotesi 2 (l'indirizzo).
 
 Per tornare a cifrare, le cose da chiedere all'hosting sono quattro: il log TLS di ProFTPD alla
 data e ora di un run fallito, per vedere se compare un handshake rifiutato sul canale dati; se un
