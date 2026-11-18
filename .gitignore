@@ -5,3 +5,6 @@ dist/
 npm-debug.log*
 backlog/
 bak/
+
+# file di stato del deploy FTP: generato in CI, non va mai committato
+.ftp-deploy-sync-state.json
