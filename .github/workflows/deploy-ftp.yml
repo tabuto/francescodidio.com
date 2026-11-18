@@ -1,0 +1,91 @@
+# Deploy incrementale via FTP dei file modificati su main
+name: Deploy FTP
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:          # avvio manuale dalla tab Actions
+    inputs:
+      dry_run:
+        description: "Simula senza caricare"
+        type: boolean
+        default: true
+      server_dir:
+        description: "Cartella remota di destinazione (deve finire con /). Lasciare _deploytest/ per provare senza toccare il sito; './' pubblica sul sito reale"
+        type: string
+        default: "_deploytest/"
+      protocol:
+        description: "Protocollo: ftps (cifrato) oppure ftp (in chiaro, se l'hosting resetta il canale dati)"
+        type: choice
+        options: [ftps, ftp]
+        default: ftps
+      log_level:
+        description: "Verbosita del log: verbose mostra il dialogo FTP comando per comando"
+        type: choice
+        options: [standard, verbose, minimal]
+        default: standard
+
+# evita due deploy sovrapposti
+concurrency:
+  group: ftp-deploy
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # il CSS pubblicato (assets/css/main.css) e' generato da Tailwind:
+      # lo si rigenera qui perche' corrisponda sempre all'HTML committato
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build CSS (Tailwind)
+        run: npm run build
+
+      - name: Upload FTP (solo file cambiati)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          # push su main -> ftps; run manuale -> il protocollo scelto negli input
+          protocol: ${{ github.event_name == 'workflow_dispatch' && inputs.protocol || 'ftps' }}
+          local-dir: ./
+          # push su main -> sito reale; run manuale -> la cartella scelta negli input
+          # (la root di login FTP coincide con la document root: nessun prefisso.
+          #  Se cambiasse, sostituire './' qui sotto con es. httpdocs/)
+          server-dir: ${{ github.event_name == 'workflow_dispatch' && inputs.server_dir || './' }}
+          dry-run: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run }}
+          log-level: ${{ github.event_name == 'workflow_dispatch' && inputs.log_level || 'standard' }}
+          timeout: 60000            # 60s: gli hosting condivisi a volte sono lenti ad aprire il canale dati
+          # file di sviluppo e toolchain da non pubblicare
+          # (specificare exclude sostituisce i default, quindi vanno ripetuti)
+          exclude: |
+            **/.git*
+            **/.git*/**
+            .github/**
+            .claude/**
+            node_modules/**
+            dist/**
+            backlog/**
+            bak/**
+            **/.gitkeep
+            package.json
+            package-lock.json
+            tailwind.config.js
+            assets/css/input.css
+            assets/content.md
+            assets/project-summary.md
+            assets/Screenshot_v_2_0_b2.png
+            CLAUDE.md
+            AGENT.md
+            SPECS.md
+            README.md
+            prompt.md
