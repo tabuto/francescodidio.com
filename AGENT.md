@@ -80,7 +80,9 @@ cartella `dist/` da pubblicare.
 - Secret del repository (Settings → Secrets and variables → Actions): `FTP_SERVER`,
   `FTP_USERNAME`, `FTP_PASSWORD`. Nei log appaiono come `***`; non sono disponibili in locale.
 - `server-dir: ./` corrisponde alla **root di login dell'utente FTP, che coincide con la
-  document root** del sito. Non serve alcun prefisso. Se cambiasse, va sostituito `'./'` nel
+  document root** del sito: verificato il 18 novembre 2026: i file pubblicati in `_deploytest/`
+  sono risultati raggiungibili via HTTP su `https://francescodidio.com/_deploytest/`. Non serve
+  alcun prefisso. Se cambiasse, va sostituito `'./'` nel
   fallback di `server-dir` con es. `httpdocs/`.
 - `concurrency: ftp-deploy` con `cancel-in-progress: false`: due deploy non si sovrappongono mai.
 
@@ -117,55 +119,52 @@ differenze.
   l'elenco dei file con dimensioni e hash. Conviene negarne l'accesso via `.htaccess` (il deploy
   continua a funzionare perché l'action lo legge via FTP).
 
-### Punto aperto bloccante: il server rifiuta la connessione dati passiva
+### Guasto noto: il canale dati FTPS viene rifiutato, in chiaro funziona
 
-Diagnosi verificata il 18 novembre 2026. **Il deploy non è mai riuscito a completarsi**: il
-canale di controllo FTP funziona, quello dati no. Nessun accorgimento nel workflow può aggirarlo,
-la causa è lato hosting.
+Diagnosi verificata il 18 novembre 2026 con una serie di run manuali a `log_level: verbose`.
 
-Quello che funziona, in ogni run:
+**Il deploy funziona solo con `protocol: ftp`, in chiaro.** Con `ftps` (explicit, `PROT P` sulla
+porta 21) il canale dati non trasporta nulla; con `ftps-legacy` (implicit) la porta 990 non
+risponde affatto.
 
-- login (`230 User ... logged in`), in FTPS con `AUTH TLS successful` e TLSv1.2;
-- comandi di controllo: `MKD _deploytest` → `257 "/_deploytest" - Directory successfully created`,
-  `CWD` → `250`;
-- `EPSV` → `229 Entering Extended Passive Mode (|||54755|)`: il server **annuncia** la porta
-  passiva e il socket TCP si connette (basic-ftp stampa `Optimal transfer strategy found.`).
+Cosa funziona con qualunque protocollo: login (`230 User ... logged in`), i comandi di controllo
+(`MKD` → `257`, `CWD` → `250`) e l'`EPSV`, che risponde `229 Entering Extended Passive Mode`
+annunciando la porta, con il socket TCP che si connette (`Optimal transfer strategy found.`).
 
-Quello che fallisce, sempre: **qualunque trasferimento reale sul socket dati**.
+Cosa fallisce con `ftps`: **qualunque trasferimento reale sul socket dati**.
 
-- Su `server-dir: ./` → `FTPError: 425 Unable to build data connection: Operation not permitted`.
-- Su `server-dir: _deploytest/` → `Error: Client is closed because read ECONNRESET (data socket)`.
-  Attenzione a non leggere male questo secondo errore: basic-ftp considera fatale un errore sul
-  socket dati e chiude l'intero client, per cui l'eccezione salta fuori sul comando di controllo
-  che si trova in volo — tipicamente la riga dopo `creating folder "assets/"`. La creazione della
-  cartella è una vittima, non la causa.
+- su `server-dir: ./` → `FTPError: 425 Unable to build data connection: Operation not permitted`;
+- su `server-dir: _deploytest/` → `Error: Client is closed because read ECONNRESET (data socket)`.
+  Da non leggere male: basic-ftp considera fatale un errore sul socket dati e chiude l'intero
+  client, per cui l'eccezione salta fuori sul comando di controllo che si trova in volo —
+  tipicamente la riga dopo `creating folder "assets/"`. La creazione della cartella è una
+  vittima, non la causa.
+- `ftps-legacy` sulla 990 → `Error: Timeout (control socket)`: porta chiusa.
 
-Ipotesi escluse con prove, da non riproporre:
+La prova che è il TLS e non il range passivo: lo stesso run con `protocol: ftp` ha pubblicato
+2,79 MB in 27,9 secondi e ha scritto il manifest. Dal client FTP dell'utente anche l'FTPS
+funziona, quindi il problema riguarda la combinazione fra questo server e basic-ftp (il tipico
+caso di ProFTPD che pretende il riuso della sessione TLS sul canale dati).
 
-- **Non è il TLS sul canale dati.** Con `protocol: ftp` in chiaro il `RETR` del file di stato
-  muore in modo identico, senza alcuna risposta del server.
-- **Il file di stato non è ancora stato provato davvero.** Il seed caricato a mano il 18
-  novembre 2026 è rimasto sul server col nome sbagliato — `ftp-deploy-seed-state.json` invece di
-  `.ftp-deploy-sync-state.json` — quindi tutti i `RETR` hanno cercato un file inesistente.
-  Attenzione a non ripetere l'errore di deduzione fatto allora: la risposta a quel `RETR` **non
-  è deterministica**, a volte arriva un `550 No such file` pulito e a volte nessuna risposta,
-  perché l'RST sul socket dati corre contro la risposta del server. Dall'assenza del `550` non
-  si può concludere che il file ci fosse.
-- **Dal client FTP dell'utente i trasferimenti funzionano**: l'upload manuale del seed è
-  riuscito senza problemi. Il guasto si manifesta solo sulle connessioni che arrivano dal runner
-  GitHub, il che orienta verso una restrizione del firewall legata all'origine della connessione
-  piuttosto che a una configurazione sbagliata del range passivo in assoluto.
-- **Non è la cartella di destinazione sbagliata.** `MKD` risponde `257 ... created` e
-  `/_deploytest/` risulta raggiungibile via HTTP (403: esiste, manca solo l'indice).
-- **Non è un ban IP né Fail2Ban.** Il login riesce in ~1-2 secondi anche nei run che poi
-  falliscono.
-- **Non è la versione dell'action.** La v4.3.6 riguarda la cancellazione di cartelle e la v4.4.0
-  solo il passaggio a Node 24: nessuna delle due tocca il canale dati.
+Per tornare a cifrare va chiesto all'hosting di verificare `mod_tls` di ProFTPD, in particolare
+`TLSOptions NoSessionReuseRequired`, oppure di aprire la 990 per il TLS implicito.
 
-Il `425 ... Operation not permitted` è un errore **del server**: ProFTPD si rifiuta di aprire il
-canale dati, e `Operation not permitted` è un `EPERM` sul bind della porta passiva. Da verificare
-con l'assistenza dell'hosting: range `PassivePorts` non aperto sul firewall, o ProFTPD senza il
-permesso di fare il bind su quel range.
+#### Errori di deduzione da non ripetere
+
+Durante la diagnosi ci sono cascato, e ogni volta hanno portato fuori strada:
+
+- **Un dry run che "riesce" non prova niente sul canale dati.** Se il manifest remoto non c'è, il
+  `RETR` riceve un `550` e non trasferisce un byte: il run finisce in pochi secondi con esito
+  positivo pur non avendo mai usato il canale dati. Solo un run con il manifest già presente,
+  oppure un run non-dry, esercita davvero i trasferimenti.
+- **La risposta al `RETR` di un file assente non è deterministica**: a volte arriva un `550 No
+  such file` pulito, a volte nessuna risposta, perché l'RST sul socket dati corre contro la
+  risposta del server. Dall'assenza del `550` non si può concludere che il file ci fosse.
+- **Questo ProFTPD risponde `257 ... created` a `MKD` anche su una directory che esiste già**: da
+  quel codice non si deduce che la cartella non ci fosse.
+- **Il nome del file di stato è `.ftp-deploy-sync-state.json`**, col punto iniziale, ed è il
+  default dell'input `state-name` della libreria. Un seed caricato a mano con un altro nome è
+  invisibile all'action.
 
 ### Punto aperto: cache del CSS
 
