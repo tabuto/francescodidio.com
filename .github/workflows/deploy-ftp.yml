@@ -15,10 +15,14 @@ on:
         type: string
         default: "_deploytest/"
       protocol:
-        description: "Protocollo: ftps (cifrato) oppure ftp (in chiaro, se l'hosting resetta il canale dati)"
+        description: "Protocollo: ftps (explicit, porta 21), ftps-legacy (implicit, richiede port 990), ftp (in chiaro)"
         type: choice
-        options: [ftps, ftp]
+        options: [ftps, ftps-legacy, ftp]
         default: ftps
+      port:
+        description: "Porta FTP. Vuoto = default dell'action (21). Per ftps-legacy serve 990"
+        type: string
+        default: ""
       log_level:
         description: "Verbosita del log: verbose mostra il dialogo FTP comando per comando"
         type: choice
@@ -57,6 +61,8 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           # push su main -> ftps; run manuale -> il protocollo scelto negli input
           protocol: ${{ github.event_name == 'workflow_dispatch' && inputs.protocol || 'ftps' }}
+          # vuoto -> l'action usa il suo default (21); serve solo per ftps-legacy (990)
+          port: ${{ github.event_name == 'workflow_dispatch' && inputs.port || '' }}
           local-dir: ./
           # push su main -> sito reale; run manuale -> la cartella scelta negli input
           # (la root di login FTP coincide con la document root: nessun prefisso.
