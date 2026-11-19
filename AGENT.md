@@ -105,6 +105,12 @@ Non vengono pubblicati:
 | `assets/content.md`, `assets/project-summary.md`, `assets/privacy-policy.md`, `assets/privacy-policy-summary.md`, `assets/Screenshot_v_2_0_b2.png` | sorgenti e materiale di lavoro dentro `assets/`: del testo della privacy si pubblica solo `privacy-policy.html` |
 | `CLAUDE.md`, `AGENT.md`, `SPECS.md`, `README.md`, `prompt.md` | documentazione di sviluppo |
 
+**Escludere un file non lo rimuove dal server.** L'action applica i pattern di `exclude`
+*anche* all'elenco del server ricostruito dal manifest, quindi un file appena escluso esce dal
+confronto e non viene mai marcato per la cancellazione: il dry run mostra `Server Files` calato e
+zero `Delete`. Per togliere dal server qualcosa che era stato pubblicato per errore va cancellato
+a mano. Verificato il 19 novembre 2026 con `assets/privacy-policy.md`.
+
 ### Il file di stato `.ftp-deploy-sync-state.json`
 
 È il cuore del meccanismo incrementale. L'action **non elenca mai la cartella remota**: scarica
