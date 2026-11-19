@@ -16,7 +16,7 @@ on:
         type: string
         default: "_deploytest/"
       protocol:
-        description: "Protocollo. Su questo hosting solo ftp funziona: ftps ha il canale dati rifiutato e ftps-legacy la 990 chiusa (vedi AGENT.md)"
+        description: "Protocollo. ftps funziona solo con security=strict e FTP_SERVER all'hostname del certificato, non all'IP (vedi AGENT.md); ftps-legacy ha la 990 chiusa"
         type: choice
         options: [ftp, ftps, ftps-legacy]
         default: ftp
@@ -66,9 +66,12 @@ jobs:
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
           # ATTENZIONE: il push pubblica in FTP IN CHIARO, quindi la password FTP e tutti i
-          # file transitano non cifrati a ogni deploy. Scelta consapevole del 18 novembre 2026:
-          # questo hosting rifiuta il canale dati FTPS. Riportare a 'ftps' appena l'assistenza
-          # sistema mod_tls di ProFTPD (TLSOptions NoSessionReuseRequired) - vedi AGENT.md.
+          # file transitano non cifrati a ogni deploy. Scelta del 18 novembre 2026, quando il
+          # canale dati FTPS sembrava rifiutato dall'hosting. Il 19 novembre si e' scoperto che
+          # la causa era 'security: loose' lato client: con 'strict' e FTP_SERVER all'hostname
+          # del certificato il canale dati cifrato funziona. Prima di riportare questo fallback
+          # a 'ftps' serve un run non-dry che arrivi in fondo: vedi i due guasti ancora aperti
+          # in AGENT.md (il RETR del manifest assente e i file da 0 byte).
           protocol: ${{ github.event_name == 'workflow_dispatch' && inputs.protocol || 'ftp' }}
           # vuoto -> l'action usa il suo default (21); serve solo per ftps-legacy (990)
           port: ${{ github.event_name == 'workflow_dispatch' && inputs.port || '' }}

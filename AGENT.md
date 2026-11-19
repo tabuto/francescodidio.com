@@ -121,80 +121,69 @@ differenze.
   l'elenco dei file con dimensioni e hash. Conviene negarne l'accesso via `.htaccess` (il deploy
   continua a funzionare perché l'action lo legge via FTP).
 
-### Guasto noto: il canale dati FTPS viene rifiutato, in chiaro funziona
+### Guasto del canale dati FTPS: causa accertata il 19 novembre 2026
 
-Diagnosi verificata il 18 novembre 2026 con una serie di run manuali a `log_level: verbose`.
+Per un giorno il deploy ha funzionato solo in chiaro. La causa non era l'hosting: era la
+configurazione del client.
 
-**Il deploy funziona solo con `protocol: ftp`, in chiaro.** Con `ftps` (explicit, `PROT P` sulla
-porta 21) il canale dati non trasporta nulla; con `ftps-legacy` (implicit) la porta 990 non
-risponde affatto.
+**Causa:** `security: loose`, che è il default dell'action e vale `rejectUnauthorized: false`.
+L'action gira su **Node 24** — il log di ogni run si chiude con `The following actions target
+Node.js 20 but are being forced to run on Node.js 24` — e da Node 22.23.0 / 24.17.0 / 26.3.1 il
+fix di CVE-2026-48934 vincola il riuso di una sessione TLS a un host *autenticato*. basic-ftp
+riusa la sessione del canale di controllo quando apre il socket dati (`session:
+ftp.socket.getSession()` in `transfer.js`); senza un'identità verificata del server quel riuso
+non avviene, e ProFTPD scarta una connessione dati che non riprende la sessione. Da qui il
+`425 Unable to build data connection: Operation not permitted`.
 
-Cosa funziona con qualunque protocollo: login (`230 User ... logged in`), i comandi di controllo
-(`MKD` → `257`, `CWD` → `250`) e l'`EPSV`, che risponde `229 Entering Extended Passive Mode`
-annunciando la porta, con il socket TCP che si connette (`Optimal transfer strategy found.`).
+**Rimedio in esercizio:** `security: strict` **e** `FTP_SERVER` impostato all'hostname del
+certificato, non all'IP. Il certificato FTPS di questo server è emesso per
+`web.ariel.vhosting-it.com`, che risolve allo stesso indirizzo del sito (86.105.14.20) e supera
+la verifica della catena di sistema. Con l'IP numerico nessun certificato può validare, quindi
+`strict` fallirebbe in handshake: **le due impostazioni vanno cambiate insieme.**
 
-Cosa fallisce con `ftps`: **qualunque trasferimento reale sul socket dati**.
+**Prova** (run 44480156323): con `ftps` + `strict`, 11 file pubblicati sul canale dati cifrato,
+`Uploading to 86.105.14.20:56688 (TLSv1.3)`, comprese immagini da 404 KB e 1,1 MB. Con `loose`,
+sullo stesso server e dallo stesso runner, non passava un byte.
 
-- su `server-dir: ./` → `FTPError: 425 Unable to build data connection: Operation not permitted`;
-- su `server-dir: _deploytest/` → `Error: Client is closed because read ECONNRESET (data socket)`.
-  Da non leggere male: basic-ftp considera fatale un errore sul socket dati e chiude l'intero
-  client, per cui l'eccezione salta fuori sul comando di controllo che si trova in volo —
-  tipicamente la riga dopo `creating folder "assets/"`. La creazione della cartella è una
-  vittima, non la causa.
-- `ftps-legacy` sulla 990 → `Error: Timeout (control socket)`: porta chiusa.
+Cadono quindi entrambe le ipotesi del 18 novembre: non è un firewall né un ALG FTP che gatekeepa
+le porte passive — dal runner GitHub il canale dati cifrato funziona — e non è ProFTPD che
+pretende un riuso di sessione che il client non tenta: il client lo tenta, ed è Node a negarglielo
+quando il server non è autenticato.
 
-La prova che discrimina il TLS e non il range passivo in assoluto: lo stesso run con
-`protocol: ftp` ha pubblicato 2,79 MB in 27,9 secondi e ha scritto il manifest, usando lo stesso
-`EPSV` e la stessa famiglia di porte alte.
+#### Restano due guasti aperti
 
-Sul **perché** il canale dati cifrato venga rifiutato restano due ipotesi, e dai log a
-disposizione non si distinguono. Non attribuirla alla prima senza verificare:
+**1. Il `RETR` del manifest assente può resettare il socket dati e uccidere il run.** Non è
+legato al TLS: il 18 novembre un run in chiaro ci è passato, il 19 ha fallito 3 volte su 3 (due
+in `ftps`, una in `ftp`), sempre con `Error: Client is closed because read ECONNRESET (data
+socket)` e zero upload. L'action apre l'`EPSV` **prima** del `RETR`; quando il `RETR` fallisce il
+server resetta un socket dati già aperto, e basic-ftp considera fatale qualunque errore su quel
+socket e chiude l'intero client. Si presenta **solo in assenza di manifest**, cioè alla prima
+pubblicazione di una directory, e il successo di una volta non lo rende affidabile: è una corsa.
+*Rimedio:* caricare a mano il manifest seed come `<server-dir>/.ftp-deploy-sync-state.json`
+prima del primo run. Il contenuto sta in `ftp-deploy-seed-state.json` accanto alla cartella del
+repository; ha `data: []`, quindi l'action ripubblica tutto e poi riscrive il manifest da sé.
 
-1. **Il riuso della sessione TLS sul canale dati non riesce.** ProFTPD per default pretende che
-   la connessione dati riprenda la sessione TLS del canale di controllo, e `TLSOptions
-   NoSessionReuseRequired` è l'opt-out. Attenzione però: basic-ftp **tenta** il riuso — in
-   `transfer.js` passa `session: ftp.socket.getSession()` quando apre il socket dati — quindi
-   l'ipotesi regge solo se quella sessione non è riusabile o il server non la accetta, non perché
-   il client non ci provi.
-2. **Un firewall o un ALG FTP lato hosting fa da gatekeeper sulle porte passive.** Un connection
-   tracker come `nf_conntrack_ftp` scopre la porta passiva **leggendo il canale di controllo in
-   chiaro** e la apre dinamicamente. Con FTPS il controllo è cifrato, il tracker non vede la
-   risposta `229 Entering Extended Passive Mode` e la porta resta chiusa: il `425 Unable to build
-   data connection: Operation not permitted` è esattamente ciò che produce un blocco in
-   bind/accept lato server.
+**2. Ipotesi non ancora verificata: i file da 0 byte fanno fallire l'upload in FTPS.** Nel run
+44480156323 gli 11 upload riusciti sono seguiti da due `425 ... Operation not permitted`
+consecutivi sullo stesso file, `assets/img/og-image.png`, che è **lungo 0 byte**; in chiaro quel
+file passa in 0,6 secondi (run 44371095381). L'alternativa non esclusa è un limite lato server
+sulle connessioni dati cifrate, dato che il guasto cade alla dodicesima. Il test che le separa è
+pronto sul ramo `test-ftps-zerobyte`, che esclude quel solo file: se con l'esclusione il run
+FTPS arriva in fondo la causa è il file vuoto, se fallisce al dodicesimo file qualunque esso sia
+è il limite. Richiede prima il manifest seed del punto 1.
 
-Prova raccolta il 18 novembre 2026: **con FileZilla, opzione "Richiedi FTP su TLS esplicito",
-sia il listing della root sia l'upload di un file riescono.** Un listing è già un trasferimento
-sul canale dati, quindi il canale dati cifrato di questo server **non è rotto in assoluto**, e
-l'ipotesi 2 sopravvive solo nella forma ristretta: il firewall discrimina in base
-all'indirizzo di origine, con l'IP dell'amministratore in whitelist e quello del runner GitHub
-no — configurazione comune su Plesk.
+#### Conseguenza ancora in vigore: si pubblica in chiaro
 
-Quel test però cambia client **e** rete insieme rispetto al runner, quindi non separa le due
-ipotesi. Per separarle servono due prove, ognuna delle quali tiene fermo un fattore:
+Decisione del 18 novembre 2026, **non ancora revocata**: il deploy sul `push` usa `protocol:
+ftp`, quindi la password FTP e il contenuto dei file transitano non cifrati a ogni
+pubblicazione. Il contenuto è un sito pubblico e non è un problema; la password sì: va trattata
+come esposta per costruzione. Conviene che l'account FTP del deploy sia **dedicato e limitato
+alla sola document root**, senza shell, database o altre sottoscrizioni.
 
-- **stessa rete, client diverso**: lanciare basic-ftp dalla macchina dell'amministratore. Se
-  fallisce lì dove FileZilla riesce, è l'ipotesi 1 (il client). Lo script sta fuori dal
-  repository, in `ftps-test/test.mjs` accanto alla cartella del progetto, usa la stessa versione
-  della libreria dell'action e chiede la password al prompt.
-- **stesso client, rete diversa**: FileZilla in FTPS explicit da un hotspot telefonico o una VPN.
-  Se da lì il listing fallisce, è l'ipotesi 2 (l'indirizzo).
-
-Per tornare a cifrare, le cose da chiedere all'hosting sono quattro: il log TLS di ProFTPD alla
-data e ora di un run fallito, per vedere se compare un handshake rifiutato sul canale dati; se un
-firewall o un ALG FTP gatekeepa le porte passive e come si comporta quando il controllo è
-cifrato; se `TLSOptions NoSessionReuseRequired` è impostato in `mod_tls`; e se si può aprire la
-990 per il TLS implicito.
-
-#### Conseguenza accettata: si pubblica in chiaro
-
-Decisione del 18 novembre 2026: il deploy sul `push` usa `protocol: ftp`, quindi **la password
-FTP e il contenuto dei file transitano non cifrati a ogni pubblicazione**. Il contenuto e' un
-sito pubblico e non e' un problema; la password si: va trattata come esposta per costruzione.
-Conviene quindi che l'account FTP usato dal deploy sia **dedicato e limitato alla sola document
-root**, senza accesso a shell, database o altre sottoscrizioni. Appena l'hosting sistema il
-canale dati TLS, il valore va riportato a `ftps` in `.github/workflows/deploy-ftp.yml` (una sola
-riga, il fallback del campo `protocol`).
+Per passare a `ftps` servono tre cose insieme, e la terza non è ancora verificata: `FTP_SERVER`
+all'hostname del certificato (fatto il 19 novembre), il fallback `protocol` portato a `ftps` in
+`.github/workflows/deploy-ftp.yml` (una riga), e un run non-dry che arrivi in fondo sulla
+document root — che oggi inciampa sui due guasti aperti qui sopra.
 
 #### Errori di deduzione da non ripetere
 
@@ -205,13 +194,26 @@ Durante la diagnosi ci sono cascato, e ogni volta hanno portato fuori strada:
   positivo pur non avendo mai usato il canale dati. Solo un run con il manifest già presente,
   oppure un run non-dry, esercita davvero i trasferimenti.
 - **La risposta al `RETR` di un file assente non è deterministica**: a volte arriva un `550 No
-  such file` pulito, a volte nessuna risposta, perché l'RST sul socket dati corre contro la
-  risposta del server. Dall'assenza del `550` non si può concludere che il file ci fosse.
+  such file` pulito, a volte un RST che chiude il client. Dall'assenza del `550` non si può
+  concludere che il file ci fosse, e da un `550` ricevuto una volta non si può concludere che il
+  passaggio sia affidabile.
 - **Questo ProFTPD risponde `257 ... created` a `MKD` anche su una directory che esiste già**: da
   quel codice non si deduce che la cartella non ci fosse.
 - **Il nome del file di stato è `.ftp-deploy-sync-state.json`**, col punto iniziale, ed è il
   default dell'input `state-name` della libreria. Un seed caricato a mano con un altro nome è
   invisibile all'action.
+- **Un test da FileZilla sulla macchina dell'amministratore non dice nulla sul runner**: cambia
+  client *e* rete insieme. Il 18 novembre quel test riusciva e mi ha fatto sospettare la rete,
+  mentre la causa era il client — ma il client dell'action, non FileZilla.
+- **`ftps-legacy` sulla 990 non è una via d'uscita**: `Error: Timeout (control socket)`, porta
+  chiusa.
+
+### Difetto del sito: `og-image.png` è vuoto
+
+`assets/img/og-image.png` è lungo **0 byte**, nel repository dal commit iniziale e anche sul
+sito live (`HTTP 200`, 0 byte). È l'immagine indicata dai meta Open Graph, quindi le anteprime
+dei link condivisi su social e chat sono rotte. Accanto c'è `assets/img/og-image.svg`, che ha
+contenuto: va generato il PNG da quello, nelle dimensioni attese (tipicamente 1200×630).
 
 ### Punto aperto: cache del CSS
 
