@@ -152,16 +152,33 @@ quando il server non è autenticato.
 
 #### Restano due guasti aperti
 
-**1. Il `RETR` del manifest assente può resettare il socket dati e uccidere il run.** Non è
-legato al TLS: il 18 novembre un run in chiaro ci è passato, il 19 ha fallito 3 volte su 3 (due
-in `ftps`, una in `ftp`), sempre con `Error: Client is closed because read ECONNRESET (data
-socket)` e zero upload. L'action apre l'`EPSV` **prima** del `RETR`; quando il `RETR` fallisce il
-server resetta un socket dati già aperto, e basic-ftp considera fatale qualunque errore su quel
-socket e chiude l'intero client. Si presenta **solo in assenza di manifest**, cioè alla prima
-pubblicazione di una directory, e il successo di una volta non lo rende affidabile: è una corsa.
-*Rimedio:* caricare a mano il manifest seed come `<server-dir>/.ftp-deploy-sync-state.json`
-prima del primo run. Il contenuto sta in `ftp-deploy-seed-state.json` accanto alla cartella del
-repository; ha `data: []`, quindi l'action ripubblica tutto e poi riscrive il manifest da sé.
+**1. Dalle 07:33 del 19 novembre 2026 nessuna connessione dati dal runner GitHub va a buon
+fine.** Il `RETR` del manifest non riceve **nessuna risposta**: il log verbose mostra `> RETR
+.ftp-deploy-sync-state.json` e subito dopo `> QUIT`, senza una riga di risposta, e il socket dati
+viene resettato (`Error: Client is closed because read ECONNRESET (data socket)`). Vale in `ftps`
+e in `ftp` in chiaro, quindi non è il TLS, e vale su un file che **esiste**: il manifest seed da
+361 byte è stato verificato a mano sul server.
+
+Non confonderlo con la corsa sul file mancante descritta più sotto fra gli errori di deduzione:
+quella riguarda il caso in cui il file non c'è, e produce a volte un `550` pulito. Qui il file c'è
+e il server tace.
+
+La coincidenza temporale è il dato che conta: alle 07:30 lo stesso workflow aveva ricevuto un
+`550` pulito e poi aveva trasferito 11 file, aprendo tredici connessioni dati in quattordici
+secondi e chiudendo con due errori `425`. Dalle 07:33 in poi, sei run di fila, con intervalli
+fino a nove minuti, muoiono tutti sulla prima connessione dati. Nello stesso momento **FileZilla
+dall'indirizzo dell'amministratore elenca e carica normalmente**, quindi il server non è rotto:
+il discriminante è l'indirizzo di origine.
+
+*Ipotesi corrente:* una protezione anti-flood lato hosting (LFD/CSF e simili) scattata durante il
+run delle 07:30, che blocca l'indirizzo o l'intervallo del runner. I blocchi temporanei di quel
+tipo durano per default un'ora. *Come si verifica:* aspettare che la finestra scada e fare **un
+solo** run; sul ramo `test-ftps-zerobyte` c'è uno step temporaneo che stampa l'indirizzo pubblico
+del runner, per distinguere un blocco sul singolo indirizzo da uno su un intervallo.
+
+*Conseguenza operativa:* finché il `RETR` non risponde il deploy automatico è fermo, anche sul
+sito reale, perché sulla document root il manifest non è mai stato scritto e quindi ogni push
+rifarebbe esattamente quel `RETR`. Non aspettarsi una pubblicazione da un push su `main`.
 
 **2. Ipotesi non ancora verificata: i file da 0 byte fanno fallire l'upload in FTPS.** Nel run
 44480156323 gli 11 upload riusciti sono seguiti da due `425 ... Operation not permitted`
@@ -170,7 +187,7 @@ file passa in 0,6 secondi (run 44371095381). L'alternativa non esclusa è un lim
 sulle connessioni dati cifrate, dato che il guasto cade alla dodicesima. Il test che le separa è
 pronto sul ramo `test-ftps-zerobyte`, che esclude quel solo file: se con l'esclusione il run
 FTPS arriva in fondo la causa è il file vuoto, se fallisce al dodicesimo file qualunque esso sia
-è il limite. Richiede prima il manifest seed del punto 1.
+è il limite. Richiede però che il punto 1 sia risolto: oggi il run non arriva nemmeno al primo upload.
 
 #### Conseguenza ancora in vigore: si pubblica in chiaro
 
