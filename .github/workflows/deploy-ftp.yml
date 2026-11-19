@@ -103,6 +103,8 @@ jobs:
             assets/css/input.css
             assets/content.md
             assets/project-summary.md
+            assets/privacy-policy.md
+            assets/privacy-policy-summary.md
             assets/Screenshot_v_2_0_b2.png
             CLAUDE.md
             AGENT.md

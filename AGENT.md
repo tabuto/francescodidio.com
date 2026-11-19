@@ -102,7 +102,7 @@ Non vengono pubblicati:
 | `**/.gitkeep` | placeholder |
 | `package.json`, `package-lock.json`, `tailwind.config.js` | toolchain |
 | `assets/css/input.css` | sorgente Tailwind: il pubblicato è `main.css` |
-| `assets/content.md`, `assets/project-summary.md`, `assets/Screenshot_v_2_0_b2.png` | materiale di lavoro dentro `assets/` |
+| `assets/content.md`, `assets/project-summary.md`, `assets/privacy-policy.md`, `assets/privacy-policy-summary.md`, `assets/Screenshot_v_2_0_b2.png` | sorgenti e materiale di lavoro dentro `assets/`: del testo della privacy si pubblica solo `privacy-policy.html` |
 | `CLAUDE.md`, `AGENT.md`, `SPECS.md`, `README.md`, `prompt.md` | documentazione di sviluppo |
 
 ### Il file di stato `.ftp-deploy-sync-state.json`
