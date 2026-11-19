@@ -1,5 +1,6 @@
 # Deploy incrementale via FTP dei file modificati su main.
-# NB: pubblica in chiaro, non in FTPS: vedi la nota sul protocollo piu' sotto.
+# Pubblica in FTPS (TLS esplicito): richiede security=strict e FTP_SERVER all'hostname
+# del certificato, non all'IP. Vedi AGENT.md.
 name: Deploy FTP
 
 on:
@@ -19,7 +20,7 @@ on:
         description: "Protocollo. ftps funziona solo con security=strict e FTP_SERVER all'hostname del certificato, non all'IP (vedi AGENT.md); ftps-legacy ha la 990 chiusa"
         type: choice
         options: [ftp, ftps, ftps-legacy]
-        default: ftp
+        default: ftps
       port:
         description: "Porta FTP. Vuoto = default dell'action (21). Per ftps-legacy serve 990"
         type: string
@@ -65,14 +66,11 @@ jobs:
           server: ${{ secrets.FTP_SERVER }}
           username: ${{ secrets.FTP_USERNAME }}
           password: ${{ secrets.FTP_PASSWORD }}
-          # ATTENZIONE: il push pubblica in FTP IN CHIARO, quindi la password FTP e tutti i
-          # file transitano non cifrati a ogni deploy. Scelta del 18 novembre 2026, quando il
-          # canale dati FTPS sembrava rifiutato dall'hosting. Il 19 novembre si e' scoperto che
-          # la causa era 'security: loose' lato client: con 'strict' e FTP_SERVER all'hostname
-          # del certificato il canale dati cifrato funziona. Prima di riportare questo fallback
-          # a 'ftps' serve un run non-dry che arrivi in fondo: vedi i due guasti ancora aperti
-          # in AGENT.md (il RETR del manifest assente e i file da 0 byte).
-          protocol: ${{ github.event_name == 'workflow_dispatch' && inputs.protocol || 'ftp' }}
+          # 'ftps' = TLS esplicito sulla 21. Funziona solo insieme a security=strict e a
+          # FTP_SERVER impostato all'hostname del certificato: con l'IP la verifica non puo'
+          # passare, e senza verifica Node 24 rifiuta di riusare la sessione TLS sul canale
+          # dati (CVE-2026-48934) e il server scarta la connessione. Vedi AGENT.md.
+          protocol: ${{ github.event_name == 'workflow_dispatch' && inputs.protocol || 'ftps' }}
           # vuoto -> l'action usa il suo default (21); serve solo per ftps-legacy (990)
           port: ${{ github.event_name == 'workflow_dispatch' && inputs.port || '' }}
           local-dir: ./

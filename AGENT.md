@@ -121,86 +121,62 @@ differenze.
   l'elenco dei file con dimensioni e hash. Conviene negarne l'accesso via `.htaccess` (il deploy
   continua a funzionare perché l'action lo legge via FTP).
 
-### Guasto del canale dati FTPS: causa accertata il 19 novembre 2026
+### Il deploy cifrato funziona: cosa serviva
 
-Per un giorno il deploy ha funzionato solo in chiaro. La causa non era l'hosting: era la
-configurazione del client.
+Per un giorno il deploy ha funzionato solo in chiaro. Nessuna delle due cause era l'hosting.
 
-**Causa:** `security: loose`, che è il default dell'action e vale `rejectUnauthorized: false`.
-L'action gira su **Node 24** — il log di ogni run si chiude con `The following actions target
-Node.js 20 but are being forced to run on Node.js 24` — e da Node 22.23.0 / 24.17.0 / 26.3.1 il
-fix di CVE-2026-48934 vincola il riuso di una sessione TLS a un host *autenticato*. basic-ftp
-riusa la sessione del canale di controllo quando apre il socket dati (`session:
-ftp.socket.getSession()` in `transfer.js`); senza un'identità verificata del server quel riuso
-non avviene, e ProFTPD scarta una connessione dati che non riprende la sessione. Da qui il
-`425 Unable to build data connection: Operation not permitted`.
+**Causa 1: `security: loose` più l'IP nel secret.** `loose` è il default dell'action e vale
+`rejectUnauthorized: false`. L'action gira su **Node 24** — il log di ogni run si chiude con `The
+following actions target Node.js 20 but are being forced to run on Node.js 24` — e da Node
+22.23.0 / 24.17.0 / 26.3.1 il fix di CVE-2026-48934 vincola il riuso di una sessione TLS a un
+host *autenticato*. basic-ftp riusa la sessione del canale di controllo quando apre il socket
+dati (`session: ftp.socket.getSession()` in `transfer.js`); senza identità verificata quel riuso
+non avviene e il server scarta la connessione dati, da cui `425 Unable to build data connection:
+Operation not permitted`.
 
-**Rimedio in esercizio:** `security: strict` **e** `FTP_SERVER` impostato all'hostname del
+*Rimedio, da applicare insieme:* `security: strict` **e** `FTP_SERVER` impostato all'hostname del
 certificato, non all'IP. Il certificato FTPS di questo server è emesso per
 `web.ariel.vhosting-it.com`, che risolve allo stesso indirizzo del sito (86.105.14.20) e supera
 la verifica della catena di sistema. Con l'IP numerico nessun certificato può validare, quindi
-`strict` fallirebbe in handshake: **le due impostazioni vanno cambiate insieme.**
+`strict` da solo fallirebbe in handshake.
 
-**Prova** (run 44480156323): con `ftps` + `strict`, 11 file pubblicati sul canale dati cifrato,
-`Uploading to 86.105.14.20:56688 (TLSv1.3)`, comprese immagini da 404 KB e 1,1 MB. Con `loose`,
-sullo stesso server e dallo stesso runner, non passava un byte.
+**Causa 2: il manifest seed era stato caricato col nome sbagliato.** Sul server c'era
+`.ftp-deploy-seed-state.json`, mentre l'action cerca `.ftp-deploy-sync-state.json`: *seed* contro
+*sync*. Ogni `RETR` riceveva quindi un `550` legittimo — e un `550` sul `RETR` resetta il socket
+dati già aperto abbastanza spesso da uccidere il run (il 19 novembre: 4 run su 5). Rinominato il
+file, il problema è sparito.
 
-Cadono quindi entrambe le ipotesi del 18 novembre: non è un firewall né un ALG FTP che gatekeepa
-le porte passive — dal runner GitHub il canale dati cifrato funziona — e non è ProFTPD che
-pretende un riuso di sessione che il client non tenta: il client lo tenta, ed è Node a negarglielo
-quando il server non è autenticato.
+**Prova** (run 44493354187): `ftps` + `strict`, non-dry su `_deploytest/`, **32 file in 20,1
+secondi** e manifest riscritto; dei 28 file pubblicati, **28 su 28 verificati identici byte per
+byte** scaricando ogni URL e confrontando lo sha256.
 
-#### Restano due guasti aperti
+#### Ipotesi cadute, da non riesumare
 
-**1. Dalle 07:33 del 19 novembre 2026 nessuna connessione dati dal runner GitHub va a buon
-fine.** Il `RETR` del manifest non riceve **nessuna risposta**: il log verbose mostra `> RETR
-.ftp-deploy-sync-state.json` e subito dopo `> QUIT`, senza una riga di risposta, e il socket dati
-viene resettato (`Error: Client is closed because read ECONNRESET (data socket)`). Vale in `ftps`
-e in `ftp` in chiaro, quindi non è il TLS, e vale su un file che **esiste**: il manifest seed da
-361 byte è stato verificato a mano sul server.
+Ognuna sembrava solida e ognuna era sbagliata:
 
-Non confonderlo con la corsa sul file mancante descritta più sotto fra gli errori di deduzione:
-quella riguarda il caso in cui il file non c'è, e produce a volte un `550` pulito. Qui il file c'è
-e il server tace.
+- **Un firewall o un ALG FTP che gatekeepa le porte passive.** Morta: dal runner GitHub i
+  trasferimenti cifrati passano.
+- **ProFTPD pretende un riuso di sessione che il client non tenta.** Morta: il client lo tenta,
+  è Node a negarglielo quando il server non è autenticato.
+- **I file da 0 byte fanno fallire l'upload in FTPS.** Morta due volte: `assets/img/og-image.png`
+  è lungo 0 byte ed è stato pubblicato sul canale cifrato nel run 44493354187, e una prova
+  diretta ha caricato `/dev/null` su TLS senza problemi.
+- **Una protezione anti-flood lato hosting scattata dopo un picco di connessioni.** Morta: era
+  solo il nome del file sbagliato. L'ho dedotta da una coincidenza temporale e mi è costata
+  un'ora di attesa inutile.
 
-La coincidenza temporale è il dato che conta: alle 07:30 lo stesso workflow aveva ricevuto un
-`550` pulito e poi aveva trasferito 11 file, aprendo tredici connessioni dati in quattordici
-secondi e chiudendo con due errori `425`. Dalle 07:33 in poi, sei run di fila, con intervalli
-fino a nove minuti, muoiono tutti sulla prima connessione dati. Nello stesso momento **FileZilla
-dall'indirizzo dell'amministratore elenca e carica normalmente**, quindi il server non è rotto:
-il discriminante è l'indirizzo di origine.
+#### L'unico guasto che resta
 
-*Ipotesi corrente:* una protezione anti-flood lato hosting (LFD/CSF e simili) scattata durante il
-run delle 07:30, che blocca l'indirizzo o l'intervallo del runner. I blocchi temporanei di quel
-tipo durano per default un'ora. *Come si verifica:* aspettare che la finestra scada e fare **un
-solo** run; sul ramo `test-ftps-zerobyte` c'è uno step temporaneo che stampa l'indirizzo pubblico
-del runner, per distinguere un blocco sul singolo indirizzo da uno su un intervallo.
+**Alla prima pubblicazione di una directory, il `RETR` del manifest assente può resettare il
+socket dati e uccidere il run.** È una corsa fra il `550` del server e l'RST, non è legata al
+TLS (succede anche in chiaro) e il 19 novembre ha fatto fallire 4 run su 5. *Rimedio:* caricare a
+mano il manifest seed **col nome esatto** `<server-dir>/.ftp-deploy-sync-state.json` prima del
+primo run di una directory nuova. Ha `data: []`, quindi l'action ripubblica tutto e poi riscrive
+il manifest da sé. In alternativa si rilancia il run finché passa, ma è una lotteria.
 
-*Conseguenza operativa:* finché il `RETR` non risponde il deploy automatico è fermo, anche sul
-sito reale, perché sulla document root il manifest non è mai stato scritto e quindi ogni push
-rifarebbe esattamente quel `RETR`. Non aspettarsi una pubblicazione da un push su `main`.
-
-**2. Ipotesi non ancora verificata: i file da 0 byte fanno fallire l'upload in FTPS.** Nel run
-44480156323 gli 11 upload riusciti sono seguiti da due `425 ... Operation not permitted`
-consecutivi sullo stesso file, `assets/img/og-image.png`, che è **lungo 0 byte**; in chiaro quel
-file passa in 0,6 secondi (run 44371095381). L'alternativa non esclusa è un limite lato server
-sulle connessioni dati cifrate, dato che il guasto cade alla dodicesima. Il test che le separa è
-pronto sul ramo `test-ftps-zerobyte`, che esclude quel solo file: se con l'esclusione il run
-FTPS arriva in fondo la causa è il file vuoto, se fallisce al dodicesimo file qualunque esso sia
-è il limite. Richiede però che il punto 1 sia risolto: oggi il run non arriva nemmeno al primo upload.
-
-#### Conseguenza ancora in vigore: si pubblica in chiaro
-
-Decisione del 18 novembre 2026, **non ancora revocata**: il deploy sul `push` usa `protocol:
-ftp`, quindi la password FTP e il contenuto dei file transitano non cifrati a ogni
-pubblicazione. Il contenuto è un sito pubblico e non è un problema; la password sì: va trattata
-come esposta per costruzione. Conviene che l'account FTP del deploy sia **dedicato e limitato
-alla sola document root**, senza shell, database o altre sottoscrizioni.
-
-Per passare a `ftps` servono tre cose insieme, e la terza non è ancora verificata: `FTP_SERVER`
-all'hostname del certificato (fatto il 19 novembre), il fallback `protocol` portato a `ftps` in
-`.github/workflows/deploy-ftp.yml` (una riga), e un run non-dry che arrivi in fondo sulla
-document root — che oggi inciampa sui due guasti aperti qui sopra.
+**Da chiudere lato hosting:** il manifest è **leggibile via HTTP** (`200`, 6473 byte) ed elenca
+ogni file pubblicato col suo sha256. Sulla cartella di prova è innocuo, sulla document root va
+negato l'accesso.
 
 #### Errori di deduzione da non ripetere
 
@@ -224,6 +200,14 @@ Durante la diagnosi ci sono cascato, e ogni volta hanno portato fuori strada:
   mentre la causa era il client — ma il client dell'action, non FileZilla.
 - **`ftps-legacy` sulla 990 non è una via d'uscita**: `Error: Timeout (control socket)`, porta
   chiusa.
+
+- **L'action inghiotte l'errore del `RETR` in un `catch` e lo traduce in `No file exists on the
+  server`**: quel messaggio non distingue fra file assente e canale dati rotto. Per sapere quale
+  dei due, interroga il server con `SIZE` o `MLSD`, che viaggiano sul canale di controllo.
+- **Il `#` in un blocco YAML non apre un commento.** Un pattern di `exclude` scritto come
+  `file.png   # nota` diventa il valore intero e non corrisponde a nessun file.
+- **"Il file c'è" non è una conferma del nome.** Quando la verifica dipende da un nome esatto,
+  fatti dire il nome o leggilo dal server.
 
 ### Difetto del sito: `og-image.png` è vuoto
 
