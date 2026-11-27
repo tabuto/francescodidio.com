@@ -9,28 +9,39 @@
 | Campo              | Valore                          |
 |--------------------|---------------------------------|
 | Nome completo      | Francesco di Dio                |
-| Titolo professionale | IT Consultant — JavaEE & Python |
-| Tagline            | IT Consultant on JavaEE and Python technologies |
+| Titolo professionale | Technical Manager — GenAI Adoption |
+| Tagline            | GenAI Adoption · Agentic Enterprise Delivery |
 | Data di nascita    | 14/08/1983                      |
 | Email              | f.didio.1983@gmail.com          |
 
 ---
 ## About me
-Technical Manager con oltre 15 anni nello sviluppo enterprise Java, oggi focalizzato su come la GenAI e lo sviluppo Spec-Driven cambiano il modo in cui i team progettano e consegnano software: governance tecnica, automazione dei processi e crescita delle persone, con un approccio pragmatico e orientato all'esecuzione.
+Technical Manager che guida l'adozione della GenAI nella produzione di software enterprise: industrializzo i workflow agentici end to end, dai requisiti, offerte tecniche e stime fino a design, scomposizione in task e codice. Uso sul campo GitHub Copilot, server MCP, RAG, Spec-Driven Development, agent skill e workflow basati su LLM.
 
-​Expertise principale:
+Provengo da oltre 15 anni come Technical Lead su progetti enterprise Java EE e Quarkus: architetture a microservizi, SSO & Identity Management per oltre 5 milioni di account, sicurezza OAuth2/OIDC, nei settori GDO, energia e pubblica amministrazione.
 
-​Metodologie Spec-Driven: Leadership nell'adozione di GenAI per la produzione di software enterprise, focalizzandomi sulla precisione delle specifiche come driver di sviluppo.
-​Enterprise Leadership: Gestione di progetti SSO e Identity Management per oltre 5 milioni di account, coordinando team multidisciplinari.
-​Technical Mastery: Architetture microservizi (Quarkus), sicurezza (OAuth2/OIDC) e integrazione di sistemi complessi.
 Sempre interessato a confrontarmi su come la GenAI stia ridefinendo i processi di sviluppo enterprise. Parliamone!
+
+### About me (EN)
+Technical Manager driving GenAI adoption in enterprise software delivery: industrializing agentic workflows end to end, from requirements, technical proposals and estimates to design, task breakdown and code. Hands-on with GitHub Copilot, MCP servers, RAG, Spec-Driven Development, agent skills and LLM-based workflows.
+
+My background is 15+ years as Technical Lead on enterprise Java EE and Quarkus projects: microservices architectures, SSO & Identity Management for over 5 million accounts, OAuth2/OIDC security, across retail (GDO), energy and public sector.
+
+Always keen to discuss how GenAI is redefining enterprise development processes. Let's talk!
+
+### Skill principali
+1. Generative AI
+2. AI-Assisted Development (GitHub Copilot)
+3. Spec-Driven Development
+4. Technical Leadership
+5. Software Architecture
+6. Java EE / Quarkus
 
 ## Bio breve
 
-Francesco di Dio è un IT Consultant specializzato in tecnologie JavaEE e Python con più di 10 anni di esperienza.
-Ha lavorato come Project manager, Technical & Team Leader e Full-stack developer su progetti per grandi aziende in settori Energy, GDO e PA su sistemi BigData, Document Management di livello enterprise.
+Francesco di Dio è Technical Manager in Engineering S.p.A., dove guida l'adozione della GenAI e l'industrializzazione dell'approccio agentico nei progetti enterprise.
+Ha oltre 15 anni di esperienza come Project Manager, Technical & Team Leader e sviluppatore su progetti Java EE e Quarkus per grandi aziende nei settori Energy, GDO e PA.
 Laureato in Ingegneria Informatica all'Università di Palermo con 100/110.
-Appassionato di sviluppo Gen-AI, open source e linguaggi emergenti.
 
 ---
 
@@ -49,9 +60,9 @@ Appassionato di sviluppo Gen-AI, open source e linguaggi emergenti.
 ### Technical Manager — Engineering S.p.A.
 **Periodo:** 01/2026 - attualmente
 **Ruolo:** Technical Manager  
-**Descrizione:** Come Technical Manager ho la responsabilità del monitoraggio e avanzamento economico di alcuni progetti, l'allocazione, la crescita e la valutazione delle risorse, la guida tecnica di alcuni progetti promuovendo i driver e i behavior aziendali.
+**Descrizione:** Come Technical Manager ho la responsabilità del monitoraggio e avanzamento economico di alcuni progetti, l'allocazione, la crescita e la valutazione delle risorse, la guida tecnica di alcuni progetti promuovendo i driver e i behavior aziendali. Guido l'adozione della GenAI nei progetti, industrializzando l'approccio agentico su tutto il ciclo: requisiti, offerta tecnica, stima, management, design e task, con GitHub Copilot, server MCP, RAG, Spec-Driven Development, skill e workflow.
 
-**Skill:** Project Managment, Team Leading, Gen-Ai
+**Skill:** Project Management, Team Leading, GenAI Adoption, GitHub Copilot, MCP, RAG, Spec-Driven Development
 
 ### Team Leader - Project Manager — Engineering S.p.A.
 **Periodo:** 09/2025 - 01/2026

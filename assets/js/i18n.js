@@ -11,9 +11,9 @@ var I18N = {
   it: {
     /* ─── META ─── */
     'meta.title.index':       'Francesco di Dio — Technical Manager & Engineering Leader',
-    'meta.description.index': 'Francesco di Dio, Technical Manager ed Engineering Leader. Esperto in GenAI, Spec-Driven, Java/Quarkus, OAuth2/OIDC. Portfolio, CV e contatti.',
+    'meta.description.index': 'Francesco di Dio, Technical Manager: adozione della GenAI e industrializzazione dei workflow agentici nel software enterprise (GitHub Copilot, MCP, RAG, Spec-Driven). Background Java EE/Quarkus.',
     'meta.title.cv':          'CV — Francesco di Dio · Technical Manager',
-    'meta.description.cv':    'Curriculum vitae di Francesco di Dio, Technical Manager ed Engineering Leader specializzato in Java, Quarkus, OAuth2/OIDC e sviluppo GenAI Spec-Driven.',
+    'meta.description.cv':    'Curriculum vitae di Francesco di Dio, Technical Manager: adozione della GenAI e workflow agentici nel software enterprise (GitHub Copilot, MCP, RAG, Spec-Driven). Background Java EE/Quarkus.',
     'meta.title.privacy':     'Privacy Policy — Francesco di Dio',
     'meta.description.privacy': 'Privacy Policy di francescodidio.com. Informazioni sul trattamento dei dati personali degli utenti ai sensi del GDPR.',
     'meta.og.locale': 'it_IT',
@@ -32,8 +32,8 @@ var I18N = {
     'hero.cta.cv':        'Curriculum →',
 
     /* ─── ABOUT ─── */
-    'about.p1': 'Manager tecnico con oltre 2 anni di esperienza nella guida di progetti critici per la <strong>GDO</strong>, focalizzato sull\'integrazione tra ingegneria del software tradizionale e innovazione <strong>GenAI</strong>.',
-    'about.p2': 'Leadership nell\'adozione di metodologie <strong>Spec-Driven</strong> per la produzione di software enterprise, gestione di progetti <strong>SSO &amp; Identity Management</strong> per oltre 5 milioni di account, architetture microservizi (<strong>Quarkus</strong>) e sicurezza (<strong>OAuth2/OIDC</strong>).',
+    'about.p1': 'Technical Manager che guida l\'adozione della <strong>GenAI</strong> nella produzione di software enterprise: industrializzo i workflow agentici end to end, dai requisiti, offerte tecniche e stime fino a design, scomposizione in task e codice. Uso sul campo <strong>GitHub Copilot</strong>, server <strong>MCP</strong>, <strong>RAG</strong>, <strong>Spec-Driven Development</strong>, agent skill e workflow basati su LLM.',
+    'about.p2': 'Provengo da oltre 15 anni come <strong>Technical Lead</strong> su progetti enterprise <strong>Java EE</strong> e <strong>Quarkus</strong>: architetture a microservizi, <strong>SSO &amp; Identity Management</strong> per oltre 5 milioni di account, sicurezza <strong>OAuth2/OIDC</strong>, nei settori GDO, energia e pubblica amministrazione.',
     'about.p3': 'Sempre interessato a confrontarmi su come la GenAI stia ridefinendo i processi di sviluppo enterprise. Parliamone!',
 
     /* ─── SOCIAL ─── */
@@ -57,7 +57,7 @@ var I18N = {
     'cv.edu.label':   'Formazione',
     'cv.exp1.date':   '01/2026 – attualmente',
     'cv.exp1.role':   'Technical Manager',
-    'cv.exp1.desc':   'Monitoraggio economico, allocazione e crescita risorse, guida tecnica di progetti con focus su GenAI.',
+    'cv.exp1.desc':   'Guida l\'adozione della GenAI e dei workflow agentici nei progetti enterprise; monitoraggio economico, allocazione e crescita delle risorse.',
     'cv.exp2.date':   '09/2025 – 01/2026',
     'cv.exp2.role':   'Team Leader — Batch Anonimizzazione',
     'cv.exp2.desc':   'Anonimizzazione GDPR di 5M record con workflow 100% Spec-Driven GenAI. Stack: Java 8, Spring Batch, DB2.',
@@ -86,11 +86,11 @@ var I18N = {
     'cv.page.nav.print.label': 'Stampa o salva come PDF',
     'cv.page.subtitle':        'IT Consultant — JavaEE & Python',
     'cv.page.summary.h2':      'Profilo',
-    'cv.page.summary.p':       'Manager tecnico con oltre 2 anni di esperienza nella guida di progetti critici per la GDO, focalizzato sull\'integrazione tra ingegneria del software tradizionale e innovazione GenAI. Leadership nell\'adozione di metodologie <strong>Spec-Driven</strong> per la produzione di software enterprise. Gestione di progetti <strong>SSO &amp; Identity Management</strong> per oltre 5 milioni di account, coordinando team multidisciplinari. Architetture microservizi (<strong>Quarkus</strong>), sicurezza (<strong>OAuth2/OIDC</strong>) e integrazione di sistemi complessi. Laureato in Ingegneria Informatica all\'Università di Palermo con 100/110.',
+    'cv.page.summary.p':       'Technical Manager che guida l\'adozione della <strong>GenAI</strong> nella produzione di software enterprise, industrializzando i workflow agentici end to end: requisiti, offerte tecniche, stime, design, scomposizione in task e codice. Uso sul campo <strong>GitHub Copilot</strong>, server <strong>MCP</strong>, <strong>RAG</strong>, <strong>Spec-Driven Development</strong>, agent skill e workflow basati su LLM. Provengo da oltre 15 anni come <strong>Technical Lead</strong> su progetti enterprise <strong>Java EE</strong> e <strong>Quarkus</strong>: architetture a microservizi, <strong>SSO &amp; Identity Management</strong> per oltre 5 milioni di account, sicurezza <strong>OAuth2/OIDC</strong>, nei settori GDO, energia e pubblica amministrazione. Laureato in Ingegneria Informatica all\'Università di Palermo con 100/110.',
     'cv.page.exp.h2':          'Esperienze',
     'cv.page.exp.1.date':      '01/2026 – attualmente',
-    'cv.page.exp.1.desc':      'Responsabilità del monitoraggio e avanzamento economico di progetti, allocazione, crescita e valutazione delle risorse. Guida tecnica di progetti promuovendo i driver e i behavior aziendali.',
-    'cv.page.exp.1.skills':    '<strong>Skill:</strong> Project Management, Team Leading, GenAI',
+    'cv.page.exp.1.desc':      'Responsabilità del monitoraggio e avanzamento economico di progetti, allocazione, crescita e valutazione delle risorse. Guida l\'adozione della <strong>GenAI</strong> nei progetti, industrializzando l\'approccio agentico su tutto il ciclo: requisiti, offerta tecnica, stima, management, design e task, con GitHub Copilot, server MCP, RAG, Spec-Driven Development, skill e workflow.',
+    'cv.page.exp.1.skills':    '<strong>Skill:</strong> Project Management, Team Leading, GenAI Adoption, GitHub Copilot, MCP, RAG, Spec-Driven Development',
     'cv.page.exp.2.date':      '09/2025 – 01/2026',
     'cv.page.exp.2.project':   'Engineering S.p.A. — Batch Anonimizzazione',
     'cv.page.exp.2.desc':      'Soluzione enterprise per l\'anonimizzazione GDPR di 5 milioni di record per un primario player nazionale. Banco di prova per l\'adozione di un workflow 100% Spec-Driven GenAI: trasformazione di requisiti funzionali complessi in codice di produzione tramite GitHub Copilot CLI. Elaborazione di 2 batch massivi (5M+ dati) con elevati standard di sicurezza e performance.',
@@ -127,6 +127,7 @@ var I18N = {
     'cv.page.edu.3.uni':       'Liceo Scientifico "Elio Vittorini", Gela (CL)',
     'cv.page.edu.3.score':     'Voto: 90/100',
     'cv.page.skills.h2':       'Competenze',
+    'cv.page.skills.genai':    'GenAI & Sviluppo agentico',
     'cv.page.skills.languages':'Linguaggi & Framework',
     'cv.page.skills.tools':    'Ambienti & Strumenti',
     'cv.page.lang.h2':         'Lingue',
@@ -268,9 +269,9 @@ var I18N = {
   en: {
     /* ─── META ─── */
     'meta.title.index':       'Francesco di Dio — Technical Manager & Engineering Leader',
-    'meta.description.index': 'Francesco di Dio, Technical Manager and Engineering Leader. Expert in GenAI, Spec-Driven, Java/Quarkus, OAuth2/OIDC. Portfolio, resume and contacts.',
+    'meta.description.index': 'Francesco di Dio, Technical Manager: GenAI adoption and agentic workflows industrialized across enterprise software delivery (GitHub Copilot, MCP, RAG, Spec-Driven). Java EE/Quarkus background.',
     'meta.title.cv':          'Resume — Francesco di Dio · Technical Manager',
-    'meta.description.cv':    'Resume of Francesco di Dio, Technical Manager and Engineering Leader specialised in Java, Quarkus, OAuth2/OIDC and GenAI Spec-Driven development.',
+    'meta.description.cv':    'Resume of Francesco di Dio, Technical Manager: GenAI adoption and agentic workflows in enterprise software (GitHub Copilot, MCP, RAG, Spec-Driven). Java EE/Quarkus background.',
     'meta.title.privacy':     'Privacy Policy — Francesco di Dio',
     'meta.description.privacy': 'Privacy Policy for francescodidio.com. Information on the processing of personal data under GDPR.',
     'meta.og.locale': 'en_US',
@@ -289,8 +290,8 @@ var I18N = {
     'hero.cta.cv':        'Resume →',
 
     /* ─── ABOUT ─── */
-    'about.p1': 'Technical Manager with over 2 years of experience leading critical projects in the retail (<strong>GDO</strong>) sector, focused on bridging traditional software engineering with <strong>GenAI</strong> innovation.',
-    'about.p2': 'Leadership in adopting <strong>Spec-Driven</strong> methodologies for enterprise software delivery, management of <strong>SSO &amp; Identity Management</strong> projects for over 5 million accounts, microservices architectures (<strong>Quarkus</strong>) and security (<strong>OAuth2/OIDC</strong>).',
+    'about.p1': 'Technical Manager driving <strong>GenAI</strong> adoption in enterprise software delivery: industrializing agentic workflows end to end, from requirements, technical proposals and estimates to design, task breakdown and code. Hands-on with <strong>GitHub Copilot</strong>, <strong>MCP</strong> servers, <strong>RAG</strong>, <strong>Spec-Driven Development</strong>, agent skills and LLM-based workflows.',
+    'about.p2': 'My background is 15+ years as <strong>Technical Lead</strong> on enterprise <strong>Java EE</strong> and <strong>Quarkus</strong> projects: microservices architectures, <strong>SSO &amp; Identity Management</strong> for over 5 million accounts, <strong>OAuth2/OIDC</strong> security, across retail (GDO), energy and public sector.',
     'about.p3': 'Always keen to discuss how GenAI is redefining enterprise development processes. Let\'s talk!',
 
     /* ─── SOCIAL ─── */
@@ -314,7 +315,7 @@ var I18N = {
     'cv.edu.label':   'Education',
     'cv.exp1.date':   '01/2026 – present',
     'cv.exp1.role':   'Technical Manager',
-    'cv.exp1.desc':   'Economic monitoring, resource allocation, growth and evaluation; technical guidance for projects with a GenAI focus.',
+    'cv.exp1.desc':   'Leads GenAI adoption and agentic workflows across enterprise projects; economic monitoring, resource allocation and growth.',
     'cv.exp2.date':   '09/2025 – 01/2026',
     'cv.exp2.role':   'Team Leader — Anonymisation Batch',
     'cv.exp2.desc':   'GDPR anonymisation of 5M records with a 100% Spec-Driven GenAI workflow. Stack: Java 8, Spring Batch, DB2.',
@@ -343,11 +344,11 @@ var I18N = {
     'cv.page.nav.print.label': 'Print or save as PDF',
     'cv.page.subtitle':        'IT Consultant — JavaEE & Python',
     'cv.page.summary.h2':      'Profile',
-    'cv.page.summary.p':       'Technical Manager with over 2 years of experience leading critical projects in the retail (GDO) sector, focused on bridging traditional software engineering with GenAI innovation. Leadership in adopting <strong>Spec-Driven</strong> methodologies for enterprise software delivery. Management of <strong>SSO &amp; Identity Management</strong> projects for over 5 million accounts, coordinating multidisciplinary teams. Microservices architectures (<strong>Quarkus</strong>), security (<strong>OAuth2/OIDC</strong>) and complex systems integration. Computer Engineering degree from the University of Palermo, 100/110.',
+    'cv.page.summary.p':       'Technical Manager driving <strong>GenAI</strong> adoption in enterprise software delivery, industrializing agentic workflows end to end: requirements, technical proposals, estimates, design, task breakdown and code. Hands-on with <strong>GitHub Copilot</strong>, <strong>MCP</strong> servers, <strong>RAG</strong>, <strong>Spec-Driven Development</strong>, agent skills and LLM-based workflows. My background is 15+ years as <strong>Technical Lead</strong> on enterprise <strong>Java EE</strong> and <strong>Quarkus</strong> projects: microservices architectures, <strong>SSO &amp; Identity Management</strong> for over 5 million accounts, <strong>OAuth2/OIDC</strong> security, across retail (GDO), energy and public sector. Computer Engineering degree from the University of Palermo, 100/110.',
     'cv.page.exp.h2':          'Experience',
     'cv.page.exp.1.date':      '01/2026 – present',
-    'cv.page.exp.1.desc':      'Responsible for economic monitoring and project progress, resource allocation, growth and evaluation. Technical guidance for projects promoting company drivers and behaviours.',
-    'cv.page.exp.1.skills':    '<strong>Skills:</strong> Project Management, Team Leading, GenAI',
+    'cv.page.exp.1.desc':      'Responsible for economic monitoring and project progress, resource allocation, growth and evaluation. Leads <strong>GenAI</strong> adoption across projects, industrializing the agentic approach over the whole lifecycle: requirements, technical proposal, estimate, management, design and tasks, with GitHub Copilot, MCP servers, RAG, Spec-Driven Development, skills and workflows.',
+    'cv.page.exp.1.skills':    '<strong>Skills:</strong> Project Management, Team Leading, GenAI Adoption, GitHub Copilot, MCP, RAG, Spec-Driven Development',
     'cv.page.exp.2.date':      '09/2025 – 01/2026',
     'cv.page.exp.2.project':   'Engineering S.p.A. — Anonymisation Batch',
     'cv.page.exp.2.desc':      'Enterprise solution for GDPR anonymisation of 5 million records for a leading national player. Test bed for adopting a 100% Spec-Driven GenAI workflow: transforming complex functional requirements into production code via GitHub Copilot CLI. Processing of 2 massive batches (5M+ records) with high security and performance standards.',
@@ -384,6 +385,7 @@ var I18N = {
     'cv.page.edu.3.uni':       'Liceo Scientifico "Elio Vittorini", Gela (CL)',
     'cv.page.edu.3.score':     'Grade: 90/100',
     'cv.page.skills.h2':       'Skills',
+    'cv.page.skills.genai':    'GenAI & Agentic Development',
     'cv.page.skills.languages':'Languages & Frameworks',
     'cv.page.skills.tools':    'Environments & Tools',
     'cv.page.lang.h2':         'Languages',
