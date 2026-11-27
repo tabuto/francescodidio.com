@@ -5,8 +5,11 @@
 ## Informazioni chiave
 
 - **Identità**: Francesco di Dio, Technical Manager ed Engineering Leader presso Engineering S.p.A., Palermo (IT)
-- **Ruolo attuale**: Technical Manager dal gennaio 2026 — monitoraggio economico, allocazione risorse, guida tecnica con focus GenAI
-- **Specializzazioni**: GenAI Spec-Driven development, SSO & Identity Management (5M+ account), microservizi con Quarkus, sicurezza OAuth2/OIDC, Spring Batch
+- **Ruolo attuale**: Technical Manager dal gennaio 2026 — guida l'adozione della GenAI e l'industrializzazione dei workflow agentici nei progetti enterprise, end to end: requisiti, offerta tecnica, stima, management, design, task e codice; oltre a monitoraggio economico, allocazione e crescita delle risorse
+- **Focus GenAI**: GitHub Copilot, server MCP, RAG, Spec-Driven Development, agent skill, workflow basati su LLM
+- **Background**: oltre 15 anni come Technical Lead su progetti enterprise Java EE e Quarkus (GDO, energia, pubblica amministrazione)
+- **Specializzazioni**: GenAI adoption e sviluppo agentico, Spec-Driven Development, SSO & Identity Management (5M+ account), microservizi con Quarkus, sicurezza OAuth2/OIDC, Spring Batch
+- **Skill principali**: Generative AI, AI-Assisted Development (GitHub Copilot), Spec-Driven Development, Technical Leadership, Software Architecture, Java EE / Quarkus
 - **Stack tecnico principale**: Java (6–8), Quarkus, Python 3 / Flask, Scala, Spark, Oracle DB, PostgreSQL, DB2, Angular.js, WildFly, WebLogic
 - **Formazione**: Laurea in Ingegneria Informatica, Università degli Studi di Palermo — 100/110 (2010)
 - **Esperienze rilevanti**:
@@ -22,7 +25,7 @@
   - PySpendless3 — gestione spese familiari, Python 3 / Flask / OAuth2 Google, spec-driven
   - NerdsLand — laboratorio di comunicazione geek e divulgazione tecnologica
   - antonio-occhipinti.com — portfolio acquerellista, stack statico GenAI Spec-Driven, i18n IT/EN
-- **Target**: recruiter, collaboratori tecnici, aziende IT, developer interessati a GenAI Spec-Driven
+- **Target**: recruiter, collaboratori tecnici, aziende IT, developer interessati all'adozione della GenAI e allo sviluppo agentico Spec-Driven
 - **Lingue**: italiano (madrelingua), inglese (professionale)
 - **Contatto**: f.didio.1983@gmail.com
 

@@ -11,7 +11,7 @@ var I18N = {
   it: {
     /* ─── META ─── */
     'meta.title.index':       'Francesco di Dio — Technical Manager & Engineering Leader',
-    'meta.description.index': 'Francesco di Dio, Technical Manager ed Engineering Leader. Esperto in GenAI, Spec-Driven, Java/Quarkus, OAuth2/OIDC. Portfolio, CV e contatti.',
+    'meta.description.index': 'Francesco di Dio, Technical Manager: adozione della GenAI e industrializzazione dei workflow agentici nel software enterprise (GitHub Copilot, MCP, RAG, Spec-Driven). Background Java EE/Quarkus.',
     'meta.title.cv':          'CV — Francesco di Dio · Technical Manager',
     'meta.description.cv':    'Curriculum vitae di Francesco di Dio, Technical Manager ed Engineering Leader specializzato in Java, Quarkus, OAuth2/OIDC e sviluppo GenAI Spec-Driven.',
     'meta.title.privacy':     'Privacy Policy — Francesco di Dio',
@@ -32,8 +32,8 @@ var I18N = {
     'hero.cta.cv':        'Curriculum →',
 
     /* ─── ABOUT ─── */
-    'about.p1': 'Manager tecnico con oltre 2 anni di esperienza nella guida di progetti critici per la <strong>GDO</strong>, focalizzato sull\'integrazione tra ingegneria del software tradizionale e innovazione <strong>GenAI</strong>.',
-    'about.p2': 'Leadership nell\'adozione di metodologie <strong>Spec-Driven</strong> per la produzione di software enterprise, gestione di progetti <strong>SSO &amp; Identity Management</strong> per oltre 5 milioni di account, architetture microservizi (<strong>Quarkus</strong>) e sicurezza (<strong>OAuth2/OIDC</strong>).',
+    'about.p1': 'Technical Manager che guida l\'adozione della <strong>GenAI</strong> nella produzione di software enterprise: industrializzo i workflow agentici end to end, dai requisiti, offerte tecniche e stime fino a design, scomposizione in task e codice. Uso sul campo <strong>GitHub Copilot</strong>, server <strong>MCP</strong>, <strong>RAG</strong>, <strong>Spec-Driven Development</strong>, agent skill e workflow basati su LLM.',
+    'about.p2': 'Provengo da oltre 15 anni come <strong>Technical Lead</strong> su progetti enterprise <strong>Java EE</strong> e <strong>Quarkus</strong>: architetture a microservizi, <strong>SSO &amp; Identity Management</strong> per oltre 5 milioni di account, sicurezza <strong>OAuth2/OIDC</strong>, nei settori GDO, energia e pubblica amministrazione.',
     'about.p3': 'Sempre interessato a confrontarmi su come la GenAI stia ridefinendo i processi di sviluppo enterprise. Parliamone!',
 
     /* ─── SOCIAL ─── */
@@ -268,7 +268,7 @@ var I18N = {
   en: {
     /* ─── META ─── */
     'meta.title.index':       'Francesco di Dio — Technical Manager & Engineering Leader',
-    'meta.description.index': 'Francesco di Dio, Technical Manager and Engineering Leader. Expert in GenAI, Spec-Driven, Java/Quarkus, OAuth2/OIDC. Portfolio, resume and contacts.',
+    'meta.description.index': 'Francesco di Dio, Technical Manager: GenAI adoption and agentic workflows industrialized across enterprise software delivery (GitHub Copilot, MCP, RAG, Spec-Driven). Java EE/Quarkus background.',
     'meta.title.cv':          'Resume — Francesco di Dio · Technical Manager',
     'meta.description.cv':    'Resume of Francesco di Dio, Technical Manager and Engineering Leader specialised in Java, Quarkus, OAuth2/OIDC and GenAI Spec-Driven development.',
     'meta.title.privacy':     'Privacy Policy — Francesco di Dio',
@@ -289,8 +289,8 @@ var I18N = {
     'hero.cta.cv':        'Resume →',
 
     /* ─── ABOUT ─── */
-    'about.p1': 'Technical Manager with over 2 years of experience leading critical projects in the retail (<strong>GDO</strong>) sector, focused on bridging traditional software engineering with <strong>GenAI</strong> innovation.',
-    'about.p2': 'Leadership in adopting <strong>Spec-Driven</strong> methodologies for enterprise software delivery, management of <strong>SSO &amp; Identity Management</strong> projects for over 5 million accounts, microservices architectures (<strong>Quarkus</strong>) and security (<strong>OAuth2/OIDC</strong>).',
+    'about.p1': 'Technical Manager driving <strong>GenAI</strong> adoption in enterprise software delivery: industrializing agentic workflows end to end, from requirements, technical proposals and estimates to design, task breakdown and code. Hands-on with <strong>GitHub Copilot</strong>, <strong>MCP</strong> servers, <strong>RAG</strong>, <strong>Spec-Driven Development</strong>, agent skills and LLM-based workflows.',
+    'about.p2': 'My background is 15+ years as <strong>Technical Lead</strong> on enterprise <strong>Java EE</strong> and <strong>Quarkus</strong> projects: microservices architectures, <strong>SSO &amp; Identity Management</strong> for over 5 million accounts, <strong>OAuth2/OIDC</strong> security, across retail (GDO), energy and public sector.',
     'about.p3': 'Always keen to discuss how GenAI is redefining enterprise development processes. Let\'s talk!',
 
     /* ─── SOCIAL ─── */
